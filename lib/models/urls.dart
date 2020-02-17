@@ -1,0 +1,24 @@
+const baseUrl="https://hades.dscvit.com/api/v2";
+
+const url_login="$baseUrl/org/login";
+const url_signup="$baseUrl/org/signup";
+const url_getJWT="$baseUrl/org/";
+const url_getOrgList="$baseUrl/org";
+const url_createOrg="$baseUrl/org/create";
+const url_getAllOrg="$baseUrl/org/all";
+const url_reqToOrg="$baseUrl/org/join";
+const url_createEvent="$baseUrl/event/save";
+const url_getOrgEvents="$baseUrl/org/events";
+const url_orgLogIn="$baseUrl/org/login-org";
+const url_createParticipant="$baseUrl/participants/create-attendee";
+const url_getAllParticipants="$baseUrl/participant/get-present";
+const url_getNoOfDaysInEvent="$baseUrl/participant/get-days";
+const url_deleteParticipant="$baseUrl/participants/delete-attendee";
+const url_getAllInJson="$baseUrl/export/json";
+const url_getAllInCsv="$baseUrl/export/csv";
+const url_createCoupon="$baseUrl/coupon/save-coupon";
+const url_getAllCoupons="$baseUrl/coupon/get-coupons";
+const url_redeemCoupon="$baseUrl/coupon/redeem-coupon";
+const url_deleteCoupon="$baseUrl/coupon/delete-coupon";
+const url_markPresent="$baseUrl/participant/mark-present";
+const url_getAllJoinReq="$baseUrl/org/requests";
