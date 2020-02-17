@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # hades_app
 
 A new Flutter project.
@@ -17,4 +16,3 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 =======
 # hadesApp
->>>>>>> 35a54a29334fee1d2e4b41023cfddc3ab7af758e
