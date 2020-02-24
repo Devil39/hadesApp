@@ -14,3 +14,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+<<<<<<< HEAD
+=======
+=======
+# hadesApp
+>>>>>>> 193ed21bcb72e5d334d3a8b71a7dc66ed3d516e7
