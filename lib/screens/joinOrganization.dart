@@ -429,6 +429,7 @@ class JoinOrganizationState extends State<JoinOrganization> {
          {
            Toast.show("Joining Request Sent!", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+           Navigator.of(context).pushReplacementNamed('/homepage');
          }
         else{
           Toast.show("Joining Request Sent!", context,

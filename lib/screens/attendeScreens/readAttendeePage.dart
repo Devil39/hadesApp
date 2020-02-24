@@ -48,20 +48,20 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
   String day;
 
   String token = '';
-  String orgToken='';
+  String orgToken = '';
 
   int noOfDays;
 
-  List<String> noOfDaysList=["Choose"];
+  List<String> noOfDaysList = ["Choose"];
 
   bool hide = false;
-  bool searching=false;
+  bool searching = false;
   String search;
   TextEditingController editingController;
 
   List<ReadAttendee> allParticipants;
   List<ReadAttendee> filteredParticipants;
-  
+
   @override
   void initState() {
     super.initState();
@@ -83,18 +83,19 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
   }
 
   void _getOrgToken(MainModel model) async {
-    String _orgToken=await model.getOrgToken();
+    String _orgToken = await model.getOrgToken();
     setState(() {
-      orgToken=_orgToken;
+      orgToken = _orgToken;
     });
   }
 
   void _getNoOfDays(MainModel model) async {
-    var a=await model.getNoOfDaysInEvent(events.eventId ,orgToken);
-    noOfDays=a["segments"].length;
-    for(int i=0;i<a["segments"].length; i++){
+    var a = await model.getNoOfDaysInEvent(events.eventId, orgToken);
+    noOfDays = a["segments"].length;
+    for (int i = 0; i < a["segments"].length; i++) {
       noOfDaysList.add(a["segments"][i]["day"].toString());
     }
+   setState(() {});
   }
 
   @override
@@ -105,51 +106,47 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
     //   "query": {"key": "", "value": "", "specific": "DSCVIT"}
     // };
 
-    dynamic searchParticipant(String value, MainModel model, var participants) async {
-      filteredParticipants=[];
-      if(value!="")
-       {
-         searching=true;
-         var a=await model.searchParticipant(value, allParticipants);
-         if(a.length>0)
-          {
-            print("Filtered Candidates!");
-            for(int i=0; i<a.length; i++)
-             {
-               print(a[i].name);
-             }
-            // a.map((data){
-            //   print(data.name);
-            // });
-            filteredParticipants=a;
-            setState(){}
+    dynamic searchParticipant(
+      String value, MainModel model, var participants) async {
+      filteredParticipants = [];
+      if (value != "") {
+        searching = true;
+        var a = await model.searchParticipant(value, allParticipants);
+        if (a.length > 0) {
+          print("Filtered Candidates!");
+          for (int i = 0; i < a.length; i++) {
+            print(a[i].name);
           }
-       }
-      else{
-        searching=false;
+          // a.map((data){
+          //   print(data.name);
+          // });
+          filteredParticipants = a;
+          setState() {}
+        }
+      } else {
+        searching = false;
       }
-     return filteredParticipants;
+      return filteredParticipants;
     }
 
     Future fetchPosts(http.Client client, MainModel model) async {
       // String eve = events.name.toString();
       // body["event"] = '$eve';
       // print(body);
-      if(day=='Choose')
-       {
+      if (day == 'Choose') {
         //  Toast.show("Please Choose a day!", context,
         //       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         //   return "No Data to be Fetched";
-        day='1';
-       }
+        day = '1';
+      }
       if (orgToken != '') {
         // var response = await http.post(URL_ALLPARTICIPANTS,
         //     headers: {"Authorization": "$token"}, body: json.encode(body));
         // final data = json.decode(response.body);
-        var a=model.getAllParticipants(day, events.eventId, orgToken);
+        var a = model.getAllParticipants(day, events.eventId, orgToken);
         var response;
-        await a.then((res){
-          response=res;
+        await a.then((res) {
+          response = res;
         });
         if (response["code"] == 200) {
           // print(response['rs'][0]);
@@ -160,29 +157,39 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
           // }
           // print(products[0].name);
           // return products;
-          if(response['participants'].length==0)
-           {
-             return "No Data to be Fetched";
-           }
+
+          // print(response["event"]["attendees"]);
+
+          // // if (response['participants'].length == 0) {
+          // //   return "No Data to be Fetched";
+          // // }
+          // // List<ReadAttendee> participants = new List<ReadAttendee>();
+          // // for (int i = 0; i < response['participants'].length; i++) {
+          // //   participants
+          // //       .add(new ReadAttendee.fromJson(response['participants'][i]));
+          // //   // print(response['rs'][i]);
+          // // }
+          if (response["event"]["attendees"].length == 0) {
+            return "No Data to be Fetched";
+          }
           List<ReadAttendee> participants = new List<ReadAttendee>();
-          for (int i = 0; i < response['participants'].length; i++) {
-            participants.add(new ReadAttendee.fromJson(response['participants'][i]));
+          for (int i = 0; i < response["event"]["attendees"].length; i++) {
+            participants
+                .add(new ReadAttendee.fromJson(response["event"]["attendees"][i]));
             // print(response['rs'][i]);
           }
           // print(participants[0].name);
-          allParticipants=participants;
-          if(searching)
-           {    
+          allParticipants = participants;
+          if (searching) {
             //  filteredParticipants=searchParticipant(search, model, allParticipants);
             //  print("Filtered Candidates1!");
             //  print(filteredParticipants);
-             return filteredParticipants;
-           }
+            return filteredParticipants;
+          }
           return participants;
         } else {
           return "No Data to be Fetched";
         }
-
 
         // if (data["error"] == null) {
         //   print(data['rs'][0]);
@@ -200,7 +207,7 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
     }
 
     return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget child, MainModel model){
+      builder: (BuildContext context, Widget child, MainModel model) {
         return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -214,69 +221,82 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
               child: FutureBuilder(
                 future: fetchPosts(http.Client(), model),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  print("Snapshot Data");
+                  // var a=null;
+                  // print("Snapshot Data");
                   // print(snapshot.data);
-                  if(snapshot.data!=null)
-                   {
-                     for(int i=0; i<snapshot.data.length; i++)
-                      {
-                        print(snapshot.data[i].name);
-                      }
-                   }
+
+                  // print(snapshot.data != null);
+                  // print(snapshot.data.runtimeType);
+                  // print(a.runtimeType);
+                  // print(a.toString());
+                  // // print(snapshot.data != null.toString());
+                  // print(a);
+                  // // if (snapshot.data != null) {
+                  // if (snapshot.data != "Null") {
+                  //   for (int i = 0; i < snapshot.data.length; i++) {
+                  //     print(snapshot.data[i].name);
+                  //   }
+                  // }
                   if (snapshot.data == null) {
                     return Container(
                       child: Column(
                         children: <Widget>[
-                          ListTile(
-                            title: const Text('Day'),
-                            trailing: new DropdownButton<String>(
-                                hint: Text('Choose'),
-                                onChanged: (String changedValue) {
-                                  newValue = changedValue;
-                                  setState(() {
-                                    // newValue;
-                                    day = newValue;
-                                  });
-                                },
-                                value: day,
-                                items: noOfDaysList
-                                    .map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: new Text(value),
-                                  );
-                                }).toList()),
+                          // ListTile(
+                          //   title: const Text('Day'),
+                          //   trailing: new DropdownButton<String>(
+                          //       hint: Text('Choose'),
+                          //       onChanged: (String changedValue) {
+                          //         newValue = changedValue;
+                          //         setState(() {
+                          //           // newValue;
+                          //           day = newValue;
+                          //         });
+                          //       },
+                          //       value: day,
+                          //       items: noOfDaysList.map((String value) {
+                          //         return new DropdownMenuItem<String>(
+                          //           value: value,
+                          //           child: new Text(value),
+                          //         );
+                          //       }).toList()),
+                          // ),
+                          Center(
+                            child: CircularProgressIndicator(),
                           ),
-                          CircularProgressIndicator(),
                         ],
                       ),
                     );
                   } else {
                     if (snapshot.data != "No Data to be Fetched") {
+                      print("<__>");
+                      print(snapshot.data);
+                      for(int i=0;i<snapshot.data.length;i++)
+                       {
+                         print(snapshot.data[i].name);
+                       }
                       return Container(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          ListTile(
-                            title: const Text('Day'),
-                            trailing: new DropdownButton<String>(
-                                hint: Text('Choose'),
-                                onChanged: (String changedValue) {
-                                  newValue = changedValue;
-                                  setState(() {
-                                    // newValue;
-                                    day = newValue;
-                                  });
-                                },
-                                value: day,
-                                items: noOfDaysList
-                                    .map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: new Text(value),
-                                  );
-                                }).toList()),
-                          ),
+                          // ListTile(
+                          //   title: const Text('Day'),
+                          //   trailing: new DropdownButton<String>(
+                          //       hint: Text('Choose'),
+                          //       onChanged: (String changedValue) {
+                          //         newValue = changedValue;
+                          //         setState(() {
+                          //           // newValue;
+                          //           day = newValue;
+                          //         });
+                          //       },
+                          //       value: day,
+                          //       items: noOfDaysList.map((String value) {
+                          //         return new DropdownMenuItem<String>(
+                          //           value: value,
+                          //           child: new Text(value),
+                          //         );
+                          //       }).toList()),
+                          // ),
                           Container(
                             margin: EdgeInsets.only(
                                 top: 10, right: 16, left: 16, bottom: 8),
@@ -292,7 +312,8 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                                 ],
                                 shape: BoxShape.rectangle,
                                 color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
                             child: TextField(
                               cursorColor: Colors.blue,
                               controller: editingController,
@@ -302,7 +323,6 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                                     onTap: () {
                                       setState(() {
                                         hide = true;
-
                                         editingController.clear();
                                         FocusScope.of(context)
                                             .requestFocus(new FocusNode());
@@ -315,13 +335,15 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                                       ),
                                     )),
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.only(left: 15.0, top: 16.0),
+                                contentPadding:
+                                    EdgeInsets.only(left: 15.0, top: 16.0),
                               ),
                               onChanged: (value) {
                                 setState(() {
                                   hide = false;
                                   search = value;
-                                  searchParticipant(value, model, snapshot.data);
+                                  searchParticipant(
+                                      value, model, snapshot.data);
                                 });
                               },
                             ),
@@ -343,6 +365,7 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                                       ),
                                       Flexible(
                                           child: IconButton(
+                                            onPressed: (){},
                                               icon: Icon(
                                             Icons.arrow_drop_down,
                                             color: Colors.grey,
@@ -357,8 +380,17 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                                 padding: const EdgeInsets.only(
                                     bottom: 16, left: 16, right: 16),
                                 itemBuilder: (BuildContext context, int index) {
+                                  // print("-->"+snapshot.data[0].name);
+                                  // print("-->"+index.toString());
+                                  // print(snapshot.data[index]);
+                                  // print(snapshot.data[index].name);
+                                  // print(snapshot.data);
+                                  for(int i=0;i<snapshot.data.length;i++)
+                                   {
+                                     print(snapshot.data[i].name);
+                                   }
                                   return AttendeeCard(
-                                      snapshot.data[index], index, events);
+                                      snapshot.data, index, events);
                                 },
                               ),
                               flex: 8)
@@ -366,30 +398,32 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                       ));
                     } else {
                       return Center(
-                        child: Container(//Text(snapshot.data)
+                        child: Container(
+                          //Text(snapshot.data)
                           child: Column(
                             children: <Widget>[
-                              ListTile(
-                                title: const Text('Day'),
-                                trailing: new DropdownButton<String>(
-                                hint: Text('Choose'),
-                                onChanged: (String changedValue) {
-                                  newValue = changedValue;
-                                  setState(() {
-                                    // newValue;
-                                    day = newValue;
-                                  });
-                                },
-                                value: day,
-                                items: noOfDaysList
-                                    .map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: new Text(value),
-                                  );
-                                }).toList()),
+                              // ListTile(
+                              //   title: const Text('Day'),
+                              //   trailing: new DropdownButton<String>(
+                              //       hint: Text('Choose'),
+                              //       onChanged: (String changedValue) {
+                              //         newValue = changedValue;
+                              //         setState(() {
+                              //           // newValue;
+                              //           day = newValue;
+                              //         });
+                              //       },
+                              //       value: day,
+                              //       items: noOfDaysList.map((String value) {
+                              //         return new DropdownMenuItem<String>(
+                              //           value: value,
+                              //           child: new Text(value),
+                              //         );
+                              //       }).toList()),
+                              // ),
+                              Center(
+                                child: Text(snapshot.data),
                               ),
-                              Text(snapshot.data),
                             ],
                           ),
                         ),
@@ -400,7 +434,7 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
               ),
             ));
       },
-          // child: ,
+      // child: ,
     );
   }
 }

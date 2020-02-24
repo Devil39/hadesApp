@@ -108,9 +108,9 @@ mixin EventModel on Model{
         headers: {"Authorization": "$orgToken"},
         body: body,
       );
-      // print("Response:");
-      // print(response.statusCode);
-      // print(response.body);
+      print("Response:");
+      print(response.statusCode);
+      print(response.body);
       statuscode=response.statusCode;
       if(response.statusCode==200)
        {

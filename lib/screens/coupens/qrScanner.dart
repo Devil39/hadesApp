@@ -4,11 +4,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qrcode_reader/qrcode_reader.dart';
+// import 'package:qrcode_reader/qrcode_reader.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:toast/toast.dart';
 // import 'package:flutter/services.dart';
 // import 'package:qr_flutter/qr_flutter.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 
 import 'package:hades_app/screens/coupens/qr.dart';
 import 'package:hades_app/screens/coupens/QRCodeReader.dart';
@@ -42,6 +43,7 @@ class _ScanState extends State<ScanScreen> {
   int index = 1;
   List _colors;
   ReadCoupon coupon;
+  String barcode="";
 
 //  _ScanState(this.pos,this.events);
 
@@ -180,7 +182,24 @@ class _ScanState extends State<ScanScreen> {
   }
 
   Future _scanQR(MainModel model) async {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>QrCodeReader()));
+    try {
+      String barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode);
+      _sendToServer(barcode, model);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'The user did not grant the camera permission!';
+        });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException{
+      setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
+      setState(() => this.barcode = 'Unknown error: $e');
+    }    
+    // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>QrCodeReader()));
     // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>QRViewExample()));
   //   try {
   //     // String qrResult = await QRCodeReader().scan();

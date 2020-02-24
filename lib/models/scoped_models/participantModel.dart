@@ -59,7 +59,7 @@ mixin ParticipantModel on Model{
     var statuscode, message;
     var body=json.encode({
         "event_id": eventId,
-        "day": int.parse(day)
+        // "day": int.parse(day)
       });
       // print(body);
       // print(orgToken);

@@ -34,7 +34,8 @@ class CouponCardState extends State<CouponCard> {
 
   Widget get babyCard {
     return GestureDetector(
-        child: new Card(
+        // child: new Card(
+          child: new Card(
             elevation: 3.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),

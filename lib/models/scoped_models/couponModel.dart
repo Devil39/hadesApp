@@ -177,7 +177,7 @@ mixin CouponModel on Model{
         // return jsonDecode(response.body);
         return {
           "code": 200,
-          "message": "Participant successfully deleted!"
+          "message": "Coupon successfully deleted!"
         };
        }
       else{
@@ -188,7 +188,7 @@ mixin CouponModel on Model{
         else{
           // message=jsonDecode(response.body)["message"];
           // var response=await response1.stream.bytesToString();
-          message="Error deleting a participant";
+          message="Error deleting coupon";
           throw message;
         }
       }

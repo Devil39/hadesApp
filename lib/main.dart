@@ -5,11 +5,11 @@ Download pdf for json
 Search bar in Read participant view //Ask why it is not showing the correct data
 Edit option in Read participant view
 Pin and password screen for participant change
-Notification, accept-delete container
-Change QR code library
+Notification Screen, accept-delete container
+>Change QR code library
 Change No of days route
 A screen for showing all users of org
-Drop Down in mark attendance
+Drop Down for day selection in mark attendance
 Good Show up for app without internet connectivity
 */
 

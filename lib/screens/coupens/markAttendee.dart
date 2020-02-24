@@ -5,8 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qrcode_reader/qrcode_reader.dart';
+// import 'package:qrcode_reader/qrcode_reader.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
 import 'package:hades_app/models/readApi1.dart';
@@ -34,6 +35,7 @@ class _MarkState extends State<MarkScreen> {
   int index = 1;
   List _colors;
   String day = "1";
+  String barcode = "";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -53,15 +55,36 @@ class _MarkState extends State<MarkScreen> {
   String regNo;
   String orgToken;
 
+  String newValue;
+  // String day;
+
+  int noOfDays;
+
+  List<String> noOfDaysList = ["Choose"];
+
   @override
   initState() {
     _c = new TextEditingController();
     super.initState();
-    _getOrgToken();
+    MainModel model = ScopedModel.of(context);
+    initializePage(model);
   }
 
-  void _getOrgToken() async {
-    MainModel model = ScopedModel.of(context);
+  void initializePage(MainModel model) async {
+    await _getOrgToken(model);
+    await _getNoOfDays(model);
+  }
+
+  void _getNoOfDays(MainModel model) async {
+    var a=await model.getNoOfDaysInEvent(events.eventId ,orgToken);
+    noOfDays=a["segments"].length;
+    for(int i=0;i<a["segments"].length; i++){
+      noOfDaysList.add(a["segments"][i]["day"].toString());
+    }
+    setState((){});
+  }
+
+  void _getOrgToken(model) async {
     String _orgToken=await model.getOrgToken();
     // print(_orgToken);
     setState(() {
@@ -180,25 +203,45 @@ class _MarkState extends State<MarkScreen> {
 
   Future _scanQR(MainModel model) async {
     try {
-      String qrResult = await QRCodeReader().scan();
-      if (qrResult != null) {
+      String barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode);
+      regNo=barcode;
+      _sendToServer(barcode, model);
+      // print("QRcode:");
+      // print(barcode); 
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          print(qrResult);
-          _sendToServer(qrResult.toString(), model);
+          this.barcode = 'The user did not grant the camera permission!';
         });
       } else {
-        setState(() {
-          index = 2;
-        });
-        Toast.show("No QR Scanned", context,
-            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        setState(() => this.barcode = 'Unknown error: $e');
       }
-    } catch (ex) {
-      setState(() {
-        result = "Unknown Error $ex";
-        index = 2;
-      });
+    } on FormatException{
+      setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
+      setState(() => this.barcode = 'Unknown error: $e');
     }
+    // try {
+    //   String qrResult = await QRCodeReader().scan();
+    //   if (qrResult != null) {
+    //     setState(() {
+    //       print(qrResult);
+    //       _sendToServer(qrResult.toString(), model);
+    //     });
+    //   } else {
+    //     setState(() {
+    //       index = 2;
+    //     });
+    //     Toast.show("No QR Scanned", context,
+    //         duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+    //   }
+    // } catch (ex) {
+    //   setState(() {
+    //     result = "Unknown Error $ex";
+    //     index = 2;
+    //   });
+    // }
   }
 
   void _processData(String res) {
@@ -208,6 +251,7 @@ class _MarkState extends State<MarkScreen> {
   }
 
   _sendToServer(String res, MainModel model) {
+    // print("Print Here!");
     // String eve = events.name.toString();
 
     // print(eve + pos.toString() + result);
@@ -239,7 +283,7 @@ class _MarkState extends State<MarkScreen> {
           Toast.show("Try again", context,
                 duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         }
-        Navigator.pop(context);
+        // Navigator.pop(context);
        }
       // var response =
       //     await http.post(URL_MARKATTENDENCE, body: json.encode(body));

@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:qrcode_reader/qrcode_reader.dart' as prefix0;
+// import 'package:qrcode_reader/qrcode_reader.dart' as prefix0;
 // import 'package:permission/permission.dart';
 import 'package:permission_handler/permission_handler.dart';
 // import 'package:qrscan/qrscan.dart' as scanner;
-// import 'package:barcode_scan/barcode_scan.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 
 class QrCodeReader extends StatefulWidget {
 
@@ -97,52 +97,50 @@ class _QrCodeReaderState extends State<QrCodeReader> {
   }
 
   Future scan() async {
-    // try {
-    //   print("Start!");
-    //   String barcode = await BarcodeScanner.scan();
-    //   print("Object passed!");
-    //   setState(() => this.barcode = barcode);
-    // } on PlatformException catch (e) {
-    //   if (e.code == BarcodeScanner.CameraAccessDenied) {
-    //     setState(() {
-    //       this.barcode = 'The user did not grant the camera permission!';
-    //     });
-    //   } else {
-    //     setState(() => this.barcode = 'Unknown error: $e');
-    //   }
-    // } on FormatException{
-    //   setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
-    // } catch (e) {
-    //   setState(() => this.barcode = 'Unknown error: $e');
-    // }
+    try {
+      String barcode = await BarcodeScanner.scan();
+      setState(() => this.barcode = barcode);
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'The user did not grant the camera permission!';
+        });
+      } else {
+        setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException{
+      setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
+      setState(() => this.barcode = 'Unknown error: $e');
+    }
   }
 
   Widget _buildFloatingActionButton(){
     return FloatingActionButton(
       onPressed: () async {
         print("Pressed!");
-        // String scanResult=await scanner.scan();
-        // print(scanResult);
-        // var barcodeString=scan();
+        print("Starting to scan!");
+        /*String scanResult=await scanner.scan();
+        print(scanResult);*/
+        await scan();                              
+        print(barcode);
         // print(barcodeString);
         // barcodeString.then((res){
         //   print(res);
+        // setState(() {
+        // setState(() {
+        //   // _barcodeString = new prefix0.QRCodeReader()
+        //   //     .setAutoFocusIntervalInMs(200)
+        //   //     .setForceAutoFocus(true)
+        //   //     .setTorchEnabled(true)
+        //   //     .setHandlePermissions(true)
+        //   //     .setExecuteAfterPermissionGranted(true)
+        //   //     //.setFrontCamera(false)
+        //   //     .scan();
+        //   //     print("here!");
+        //   // _barcodeString=scanResult;
         // });
-        // print(barcode);
-        setState(() {
-          print("Starting to scan!");
-          _barcodeString = new prefix0.QRCodeReader()
-              .setAutoFocusIntervalInMs(200)
-              .setForceAutoFocus(true)
-              .setTorchEnabled(true)
-              .setHandlePermissions(true)
-              .setExecuteAfterPermissionGranted(true)
-              //.setFrontCamera(false)
-              .scan();
-              print("here!");
-          // _barcodeString=scanResult;
-        });
-        print("Scanning done!");
+        // print("Scanning done!");
       },
       tooltip: 'Reader the QrCode',
       child: new Icon(Icons.add_a_photo),

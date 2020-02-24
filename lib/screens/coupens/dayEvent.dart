@@ -3,8 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:scoped_model/scoped_model.dart';
 
 import 'package:hades_app/models/readApi1.dart';
+import 'package:hades_app/models/scoped_models/mainModel.dart';
 import '../../models/global.dart';
 import '../../screens/coupens/markAttendee.dart';
 import '../../models/readApi.dart';
@@ -31,6 +33,13 @@ class _DayCoupenPage extends State<DayCoupenPage> {
   String name;
   String day;
   String des;
+  String orgToken;
+  String newValue;
+  // String day;
+
+  int noOfDays;
+
+  List<String> noOfDaysList = ["Choose"];
 
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
@@ -38,6 +47,29 @@ class _DayCoupenPage extends State<DayCoupenPage> {
   @override
   void initState() {
     super.initState();
+    MainModel model = ScopedModel.of(context);
+    initializePage(model);
+  }
+
+  void initializePage(MainModel model) async {
+    await _getOrgToken(model);
+    await _getNoOfDays(model);
+  }
+
+  void _getOrgToken(model) async {
+    String _orgToken=await model.getOrgToken();
+    // print(_orgToken);
+    setState(() {
+      orgToken=_orgToken;
+    });
+  }
+
+  void _getNoOfDays(MainModel model) async {
+    var a=await model.getNoOfDaysInEvent(events.eventId ,orgToken);
+    noOfDays=a["segments"].length;
+    for(int i=0;i<a["segments"].length; i++){
+      noOfDaysList.add(a["segments"][i]["day"].toString());
+    }
   }
 
   final myController = TextEditingController();
@@ -91,24 +123,43 @@ class _DayCoupenPage extends State<DayCoupenPage> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                Container(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10),
-                    child: new Theme(
-                        data: new ThemeData(
-                          primaryColor: Theme.of(context).accentColor,
-                        ),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'eg: 1',
-                            labelText: 'Day',
-                          ),
-                          keyboardType: TextInputType.phone,
-                          validator: Number,
-                          onSaved: (String val) {
-                            day = val;
-                          },
-                        ))),
+                // Container(
+                //     padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10),
+                //     child: new Theme(
+                //         data: new ThemeData(
+                //           primaryColor: Theme.of(context).accentColor,
+                //         ),
+                //         child: TextFormField(
+                //           decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             hintText: 'eg: 1',
+                //             labelText: 'Day',
+                //           ),
+                //           keyboardType: TextInputType.phone,
+                //           validator: Number,
+                //           onSaved: (String val) {
+                //             day = val;
+                //           },
+                //         ))),
+                ListTile(
+                  title: const Text('Day'),
+                  trailing: new DropdownButton<String>(
+                      hint: Text('Choose'),
+                      onChanged: (String changedValue) {
+                        newValue = changedValue;
+                        setState(() {
+                          // newValue;
+                          day = newValue;
+                        });
+                      },
+                      value: day,
+                      items: noOfDaysList.map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList()),
+                ),
                 Container(
                     padding: EdgeInsets.all(16),
                     child: new RaisedButton(
