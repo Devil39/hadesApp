@@ -32,8 +32,8 @@
 
 //   Widget get babyCard {
 //     return
-//     GestureDetector( 
-     
+//     GestureDetector(
+
 //       child:new Card(
 //         elevation: 3.0,
 //         shape: RoundedRectangleBorder(
@@ -55,13 +55,13 @@
 //           ),
 //         );
 //       },
-              
+
 //             ),
-            
+
 //           ]
 //         )
 //       ));
-           
+
 //   }
 
 //   @override
@@ -81,51 +81,46 @@ import '../models/read_attendee.dart';
 import '../screens/attendeScreens/editAttendeePage.dart';
 
 class AttendeeCard extends StatelessWidget {
-  
   final List<ReadAttendee> attendees;
   final int pos;
   final RS1 events;
 
-  AttendeeCard(this.attendees,this.pos,this.events);
+  AttendeeCard(this.attendees, this.pos, this.events);
 
   Widget babyCard(BuildContext context) {
-    return
-    GestureDetector( 
-     
-      child:new Card(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.person,size:40,color: Colors.blue,),
-              title: Text(attendees[pos].name),
-              subtitle: Text(attendees[pos].registrationNumber),
-              // subtitle: Text(attendees.regNo),
-              onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>EditAttendeePage(attendees[pos],pos,events),
-          ),
-        );
-      },
-              
+    return GestureDetector(
+        child: new Card(
+            elevation: 3.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            
-          ]
-        )
-      ));
-           
+            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              ListTile(
+                leading: const Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.blue,
+                ),
+                title: Text(attendees[pos].name),
+                subtitle: Text(attendees[pos].registrationNumber),
+                // subtitle: Text(attendees.regNo),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          EditAttendeePage(attendees[pos], pos, events),
+                    ),
+                  );
+                },
+              ),
+            ])));
   }
 
   @override
   Widget build(BuildContext context) {
     return new Container(
-          child:  babyCard(context),
-        );
+      child: babyCard(context),
+    );
   }
 }

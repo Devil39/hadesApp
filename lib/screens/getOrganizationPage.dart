@@ -184,6 +184,12 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          Text(
+                            "Back To Home Page",
+                            style: TextStyle(
+                              color: Colors.black
+                            ),
+                          ),
                           GestureDetector(
                               onTap: () {
                                 toJoin();

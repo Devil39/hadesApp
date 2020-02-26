@@ -87,24 +87,24 @@ class _EventPage extends State<EventPage> {
               shrinkWrap: true,
               padding: EdgeInsets.all(10.0),
               children: <Widget>[
-                Container(
-              padding: EdgeInsets.only(left:20),
-              child: Row(
-                children: <Widget>[
-                  Flexible(child:Text(
-                    "Services",
-                    style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey),
-                  ),flex: 15,),
-                  Flexible(child:IconButton(
-                      icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.grey,
-                  )),flex:1),
-                ],
-              )),
+              //   Container(
+              // padding: EdgeInsets.only(left:20),
+              // child: Row(
+              //   children: <Widget>[
+              //     // Flexible(child:Text(
+              //     //   "Services",
+              //     //   style: TextStyle(
+              //     //       fontSize: 15.0,
+              //     //       fontWeight: FontWeight.w400,
+              //     //       color: Colors.grey),
+              //     // ),flex: 15,),
+              //     // Flexible(child:IconButton(
+              //     //     icon: Icon(
+              //     //   Icons.arrow_drop_down,
+              //     //   color: Colors.grey,
+              //     // )),flex:1),
+              //   ],
+              // )),
                  GestureDetector(child: Container(
                     padding: EdgeInsets.only(left: 16,right:16,bottom: 16),
                     child: Center(

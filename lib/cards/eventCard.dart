@@ -61,11 +61,16 @@ class EventCardState extends State<EventCard> {
   Widget get babyCard {
     print(events.name);
     return GestureDetector(
-        child: new Card(
-            elevation: 3.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+        child: new Container(
+          margin: EdgeInsets.only(top: 3.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Color(0xffDADCE0), width: 0.5)
             ),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(15.0),
+            // ),
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
                 leading: const Icon(

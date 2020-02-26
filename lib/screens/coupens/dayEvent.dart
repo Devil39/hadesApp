@@ -27,6 +27,8 @@ class _DayCoupenPage extends State<DayCoupenPage> {
   RS1 events;
   int pos;
 
+  bool loading=true;
+
   _DayCoupenPage(this.events, this.pos);
   String selectedgender;
 
@@ -70,13 +72,24 @@ class _DayCoupenPage extends State<DayCoupenPage> {
     for(int i=0;i<a["segments"].length; i++){
       noOfDaysList.add(a["segments"][i]["day"].toString());
     }
+    setState(() {
+      loading=false;
+    });
   }
 
   final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading
+    ?
+    Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    )
+    :
+    Scaffold(
       appBar: AppBar(
         title: Text(
           'Mark Attendee',
@@ -112,6 +125,7 @@ class _DayCoupenPage extends State<DayCoupenPage> {
                       color: Colors.grey),
                 ),
                 IconButton(
+                  onPressed: (){},
                     icon: Icon(
                   Icons.arrow_drop_down,
                   color: Colors.grey,
@@ -168,7 +182,7 @@ class _DayCoupenPage extends State<DayCoupenPage> {
                           borderRadius: new BorderRadius.circular(10.0)),
                       color: Theme.of(context).accentColor,
                       child: Text(
-                        'Mark Attendence',
+                        'Mark Attendance',
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {

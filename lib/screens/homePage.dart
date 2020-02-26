@@ -12,6 +12,7 @@ import 'package:hades_app/screens/getOrganizationPage.dart';
 import 'package:http/http.dart' as http;
 // import 'package:permission/permission.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:random_pk/random_pk.dart';
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
 import 'package:hades_app/util.dart';
@@ -428,43 +429,49 @@ class _HomePageState extends State<HomePage> {
                                         child: Row(
                                           children: <Widget>[
                                             Flexible(
-                                              child: 
-                                              // orgList[orgIndex].tag =="default_image"
-                                              // || orgList[orgIndex].tag==null || orgList[orgIndex].tag==""
-                                              true
-                                                  ? Container(
-                                                      margin:
-                                                          EdgeInsets.all(16),
-                                                      padding:
-                                                          EdgeInsets.all(16),
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.blueAccent,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Text(
-                                                        orgList[orgIndex]
-                                                            .name
-                                                            .substring(0, 1)
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontSize: 21,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      padding: EdgeInsets.only(
-                                                          right: 20.0,
-                                                          left: 30.0,
-                                                          top: 16.0),
-                                                      // child: Image.asset(orgList[orgIndex].tag,
-                                                      child: Image.asset(
-                                                          "imageAssets/orgPng.png",
-                                                          width: 90.0,
-                                                          height: 90.0,
-                                                          fit: BoxFit.cover),
-                                                    ),
+                                              child:
+                                                  // orgList[orgIndex].tag =="default_image"
+                                                  // || orgList[orgIndex].tag==null || orgList[orgIndex].tag==""
+                                                  true
+                                                      ? Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blueAccent,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Text(
+                                                            orgList[orgIndex]
+                                                                .name
+                                                                .substring(0, 1)
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontSize: 21,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        )
+                                                      : Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20.0,
+                                                                  left: 30.0,
+                                                                  top: 16.0),
+                                                          // child: Image.asset(orgList[orgIndex].tag,
+                                                          child: Image.asset(
+                                                              "imageAssets/orgPng.png",
+                                                              width: 90.0,
+                                                              height: 90.0,
+                                                              fit:
+                                                                  BoxFit.cover),
+                                                        ),
                                               flex: 4,
                                             ),
                                             Flexible(
@@ -636,9 +643,9 @@ class _HomePageState extends State<HomePage> {
                                         child: Text(
                                           "Events",
                                           style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey),
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
                                         ),
                                         flex: 15,
                                       ),
@@ -721,41 +728,49 @@ class _HomePageState extends State<HomePage> {
                                         child: Row(
                                           children: <Widget>[
                                             Flexible(
-                                              child: 
-                                              // orgList[orgIndex].tag ==
-                                              //         "default_image"
-                                              true
-                                                  ? Container(
-                                                      margin:
-                                                          EdgeInsets.all(16),
-                                                      padding:
-                                                          EdgeInsets.all(16),
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.blueAccent,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Text(
-                                                        // orgList[orgIndex]
-                                                        orgList[index]
-                                                            .name
-                                                            .substring(0, 1)
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontSize: 21),
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      padding: EdgeInsets.only(
-                                                          right: 20.0,
-                                                          left: 30.0,
-                                                          top: 16.0),
-                                                      child: Image.asset(
-                                                          orgList[orgIndex].tag,
-                                                          width: 90.0,
-                                                          height: 90.0,
-                                                          fit: BoxFit.cover),
-                                                    ),
+                                              child:
+                                                  // orgList[orgIndex].tag ==
+                                                  //         "default_image"
+                                                  true
+                                                      ? Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            // color: Colors
+                                                            //     .blueAccent,
+                                                            color: RandomColor.next(),
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Text(
+                                                            // orgList[orgIndex]
+                                                            orgList[index]
+                                                                .name
+                                                                .substring(0, 1)
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontSize: 21),
+                                                          ),
+                                                        )
+                                                      : Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20.0,
+                                                                  left: 30.0,
+                                                                  top: 16.0),
+                                                          child: Image.asset(
+                                                              orgList[orgIndex]
+                                                                  .tag,
+                                                              width: 90.0,
+                                                              height: 90.0,
+                                                              fit:
+                                                                  BoxFit.cover),
+                                                        ),
                                               flex: 4,
                                             ),
                                             Flexible(
@@ -826,12 +841,16 @@ class _HomePageState extends State<HomePage> {
                           //   },
                           // ),
                           child: FlatButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.of(context)
                                   .popUntil((route) => route.isFirst);
                               print("Logging in the organization: $orgId");
                               model.resetUserInfo();
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          LoginScreen()));
                             },
                             child: Row(
                               children: <Widget>[
@@ -839,23 +858,25 @@ class _HomePageState extends State<HomePage> {
                                   padding: EdgeInsets.all(10),
                                   child: Text(
                                     "Logout",
-                                    style: TextStyle(
-                                      fontSize: 18
-                                    ),
+                                    style: TextStyle(fontSize: 18),
                                   ),
                                 ),
-                                Icon(Icons.check_box_outline_blank)
+                                // Icon(Icons.check_box_outline_blank)
                               ],
                             ),
                           ),
                         ),
                         Container(
                           child: FlatButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.of(context)
                                   .popUntil((route) => route.isFirst);
                               // model.resetUserInfo();
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => GetOrganizationPage(skip: false)));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          GetOrganizationPage(skip: false)));
                             },
                             child: Row(
                               children: <Widget>[
@@ -863,12 +884,10 @@ class _HomePageState extends State<HomePage> {
                                   padding: EdgeInsets.all(10),
                                   child: Text(
                                     "Create/Join Org",
-                                    style: TextStyle(
-                                      fontSize: 18
-                                    ),
+                                    style: TextStyle(fontSize: 18),
                                   ),
                                 ),
-                                Icon(Icons.check_box_outline_blank)
+                                // Icon(Icons.check_box_outline_blank)
                               ],
                             ),
                           ),
@@ -972,19 +991,22 @@ class _HomePageState extends State<HomePage> {
                                         child: Text(
                                           "Events",
                                           style: TextStyle(
-                                              fontSize: 15.0,
+                                              // fontSize: 15.0,
+                                              // fontWeight: FontWeight.w400,
+                                              // color: Colors.grey),
+                                              fontSize: 16.0,
                                               fontWeight: FontWeight.w400,
-                                              color: Colors.grey),
+                                              color: Colors.black),
                                         ),
                                         flex: 15,
                                       ),
-                                      Flexible(
-                                          child: IconButton(
-                                              icon: Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.grey,
-                                          )),
-                                          flex: 1),
+                                      // Flexible(
+                                      //     child: IconButton(
+                                      //         icon: Icon(
+                                      //       Icons.arrow_drop_down,
+                                      //       color: Colors.grey,
+                                      //     )),
+                                      //     flex: 1),
                                     ],
                                   )),
                               flex: 1),

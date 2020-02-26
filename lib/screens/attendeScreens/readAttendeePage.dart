@@ -77,8 +77,8 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
   }
 
   void _initializePage(MainModel model) async {
-    await _getOrgToken(model);
-    await _getNoOfDays(model);
+    _getOrgToken(model);
+    _getNoOfDays(model);
     return;
   }
 
@@ -239,32 +239,35 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                   // }
                   if (snapshot.data == null) {
                     return Container(
-                      child: Column(
-                        children: <Widget>[
-                          // ListTile(
-                          //   title: const Text('Day'),
-                          //   trailing: new DropdownButton<String>(
-                          //       hint: Text('Choose'),
-                          //       onChanged: (String changedValue) {
-                          //         newValue = changedValue;
-                          //         setState(() {
-                          //           // newValue;
-                          //           day = newValue;
-                          //         });
-                          //       },
-                          //       value: day,
-                          //       items: noOfDaysList.map((String value) {
-                          //         return new DropdownMenuItem<String>(
-                          //           value: value,
-                          //           child: new Text(value),
-                          //         );
-                          //       }).toList()),
-                          // ),
-                          Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ],
+                      child: Center(
+                        child: CircularProgressIndicator(),
                       ),
+                      // child: Column(
+                      //   children: <Widget>[
+                      //     // ListTile(
+                      //     //   title: const Text('Day'),
+                      //     //   trailing: new DropdownButton<String>(
+                      //     //       hint: Text('Choose'),
+                      //     //       onChanged: (String changedValue) {
+                      //     //         newValue = changedValue;
+                      //     //         setState(() {
+                      //     //           // newValue;
+                      //     //           day = newValue;
+                      //     //         });
+                      //     //       },
+                      //     //       value: day,
+                      //     //       items: noOfDaysList.map((String value) {
+                      //     //         return new DropdownMenuItem<String>(
+                      //     //           value: value,
+                      //     //           child: new Text(value),
+                      //     //         );
+                      //     //       }).toList()),
+                      //     // ),
+                      //     Center(
+                      //       child: CircularProgressIndicator(),
+                      //     ),
+                      //   ],
+                      // ),
                     );
                   } else {
                     if (snapshot.data != "No Data to be Fetched") {
