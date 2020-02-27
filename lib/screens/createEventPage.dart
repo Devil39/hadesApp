@@ -559,7 +559,8 @@ class CreateEventPage extends StatefulWidget{
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           //hintText: 'About the event',
-                                          labelText: 'Duration'
+                                          // labelText: 'Duration'
+                                          labelText: 'Days',
                                       ),
                                       onSaved: (String val) {
                                         duration = val;

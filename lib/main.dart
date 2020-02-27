@@ -11,6 +11,15 @@ Change No of days route
 A screen for showing all users of org
 Drop Down for day selection in mark attendance
 Good Show up for app without internet connectivity
+Remove upload photo option
+Making server error screen beautiful
+Are u sure u want to delete
+First letter capital in participant create
+Checkbox alignment in export
+Export in download should show notification above
+Red color change on scanning
+Remove day selection from reedem
+Change create/join organization page
 */
 
 import 'package:flutter/material.dart';

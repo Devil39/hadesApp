@@ -158,8 +158,27 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
                   );
                 } else if (snapshot.data == "Server Error") {
                   return Container(
+                    // decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15.0)
+                    //       ),
                     child: Center(
-                      child: Text(snapshot.data),
+                      child: Card(
+                        shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                        elevation: 5.0,
+                        child: Container(
+                          padding: EdgeInsets.all(9.0),
+                          child: Text(
+                          snapshot.data,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 48,
+                            // fontFamily: ''
+                          ),
+                      ),
+                        ),
+                      ),
                     ),
                   );
                 } else if (snapshot.data == "yo") {
@@ -184,12 +203,9 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            "Back To Home Page",
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ),
+                          // Container(
+                          //   child: 
+                          // ),
                           GestureDetector(
                               onTap: () {
                                 toJoin();
