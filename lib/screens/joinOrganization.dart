@@ -109,9 +109,11 @@ class JoinOrganizationState extends State<JoinOrganization> {
                                           child: Column(children: <Widget>[
                                             Row(children: <Widget>[
                                               Flexible(
-                                                child: requests.requested[index]
-                                                            .photoUrl ==
-                                                        "default_image"
+                                                child: 
+                                                // requests.requested[index]
+                                                //             .photoUrl ==
+                                                //         "default_image"
+                                                true
                                                     ? Container(
                                                         margin: EdgeInsets.all(3),
                                                         padding:
@@ -429,7 +431,21 @@ class JoinOrganizationState extends State<JoinOrganization> {
          {
            Toast.show("Joining Request Sent!", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-           Navigator.of(context).pushReplacementNamed('/homepage');
+              var a=model.getOrgList(token);
+              var response;
+              await a.then((res){
+                response=res;
+              });
+              if (response["code"] == 200){
+                if(data["organizations"] == null || data["organizations"].length==0)
+                 {
+                   Toast.show("You are not part of any organization!", context,
+                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                 }
+                else{
+                  Navigator.of(context).pushReplacementNamed('/homepage');
+                }
+              }
          }
         else{
           Toast.show("Joining Request Sent!", context,

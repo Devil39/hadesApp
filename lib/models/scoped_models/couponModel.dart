@@ -105,7 +105,8 @@ mixin CouponModel on Model{
     var body=json.encode({
         "event_id": eventId,
         "coupon_id": couponId,
-        "reg_no": regNo
+        // "reg_no": regNo
+        "email": regNo
       });
       print(body);
       print(orgToken);

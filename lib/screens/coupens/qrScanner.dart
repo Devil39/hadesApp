@@ -131,8 +131,10 @@ class _ScanState extends State<ScanScreen> {
                             decoration: new InputDecoration(
                               // hintText: 'Email ID',
                               // labelText: 'Email ID',
-                              hintText: 'Registration Number',
-                              labelText: 'Registration Number',
+                              // hintText: 'Registration Number',
+                              // labelText: 'Registration Number',
+                              hintText: 'Email',
+                              labelText: 'Email',
                               border: OutlineInputBorder(),
                             ),
                             // keyboardType: TextInputType.emailAddress,

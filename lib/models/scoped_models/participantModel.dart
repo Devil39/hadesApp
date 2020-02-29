@@ -163,7 +163,8 @@ mixin ParticipantModel on Model{
     var statuscode, message;
     var body=json.encode({
         "event_id": eventId,
-        "reg_no": regNo,
+        // "reg_no": regNo,
+        "email": regNo,
         "day": int.parse(day)
       });
       print(body);

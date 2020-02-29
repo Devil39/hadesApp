@@ -116,8 +116,10 @@ SharedPreferencesTest s=new SharedPreferencesTest();
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                         Image.asset('images/dscnew.webp',
-                width: 90.0, height: 90.0, fit: BoxFit.cover),
+                //          Image.asset('images/dscnew.webp',
+                // width: 90.0, height: 90.0, fit: BoxFit.cover),
+                Image.asset('images/dsc_logo.jpg',
+                width: 240.0, height: 240.0, fit: BoxFit.cover),
           
                         Padding(
                           padding: EdgeInsets.only(top: 20.0),

@@ -230,12 +230,12 @@ mixin OrgModel on Model {
   Future<dynamic> getAllOrg(String token) async {
     final orgDataBox = await Hive.openBox('orgzData');
     // print(orgDataBox.get("allOrgsList"));
-    if (orgDataBox.get("allOrgsList") != null &&
-        orgDataBox.get("allOrgsList").length > 0) {
-      return orgDataBox.get("allOrgsList");
-    } else {
-      // Hive.close();
-    }
+    // if (orgDataBox.get("allOrgsList") != null &&
+    //     orgDataBox.get("allOrgsList").length > 0) {
+    //   return orgDataBox.get("allOrgsList");
+    // } else {
+    //   // Hive.close();
+    // }
     var statuscode, message;
     try {
       var response =

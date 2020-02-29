@@ -134,8 +134,10 @@ class _MarkState extends State<MarkScreen> {
                           ),
                           child: new TextFormField(
                               decoration: new InputDecoration(
-                                hintText: 'Registration Number',
-                                labelText: 'Registration Number',
+                                // hintText: 'Registration Number',
+                                // labelText: 'Registration Number',
+                                hintText: 'Email',
+                                labelText: 'Email',
                                 border: OutlineInputBorder(),
                               ),
                               // keyboardType: TextInputType.emailAddress,
