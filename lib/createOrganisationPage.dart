@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -452,17 +452,17 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
         // FirebaseApp.initializeApp(this);
 
         try {
-          StorageReference storageRef = FirebaseStorage.instance
-              .ref()
-              .child("Organization")
-              .child("${orgName}.jpg");
+          // StorageReference storageRef = FirebaseStorage.instance
+          //     .ref()
+          //     .child("Organization")
+          //     .child("${orgName}.jpg");
 
-          final StorageUploadTask uploadTask = storageRef.putFile(galleryFile);
-          final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
-          final String url = (await downloadUrl.ref.getDownloadURL());
-          image_upload_url = url.toString();
+          // final StorageUploadTask uploadTask = storageRef.putFile(galleryFile);
+          // final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
+          // final String url = (await downloadUrl.ref.getDownloadURL());
+          // image_upload_url = url.toString();
 
-          print('URL Is $url');
+          // print('URL Is $url');
         } catch (e) {
           print("Error is " + e.toString());
         }
