@@ -1,25 +1,27 @@
 /*
-Once check whether to delete a participant permanently or from the event.
-Convert Card to Container
-Download pdf for json
-Search bar in Read participant view //Ask why it is not showing the correct data
-Edit option in Read participant view
-Pin and password screen for participant change
-Notification Screen, accept-delete container
+>Convert Card to Container
+>Search bar in Read participant view //Ask why it is not showing the correct data
 >Change QR code library
-Change No of days route
+>Drop Down for day selection in mark attendance
+>Good Show up for app without internet connectivity
+>Remove upload photo option
+>Making server error screen beautiful
+>Are u sure u want to delete-readCoupon
+>Red color change on scanning
+>Remove day selection from reedem
+>Change No of days route
+>Notification Screen, accept-delete container
+>Download pdf for json
+===========================================================================
+Change create/join organization page
+Edit option in Read participant view
 A screen for showing all users of org
-Drop Down for day selection in mark attendance
-Good Show up for app without internet connectivity
-Remove upload photo option
-Making server error screen beautiful
-Are u sure u want to delete
+***************************************************************************
+Once check whether to delete a participant permanently or from the event.
+Pin and password screen for participant change
 First letter capital in participant create
 Checkbox alignment in export
 Export in download should show notification above
-Red color change on scanning
-Remove day selection from reedem
-Change create/join organization page
 */
 
 import 'package:flutter/material.dart';

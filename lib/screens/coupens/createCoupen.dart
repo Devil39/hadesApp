@@ -34,6 +34,10 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
   String day;
   String des;
   String orgToken;
+  List<String> noOfDaysList = ['Choose'];
+
+  int noOfDays;
+
 
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
@@ -53,18 +57,32 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
   @override
   void initState() {
     super.initState();
+    MainModel model = ScopedModel.of(context);
     _dropDownMenuItems = getDropDownMenuItems();
     _selectedGender = _dropDownMenuItems[0].value;
-    _getOrgToken();
+    _initializePage(model);
   }
 
-  void _getOrgToken() async {
-    MainModel model = ScopedModel.of(context);
+  void _getOrgToken(MainModel model) async {
     String _orgToken=await model.getOrgToken();
     // print(_orgToken);
     setState(() {
       orgToken=_orgToken;
     });
+  }
+
+  void _getNoOfDays(MainModel model) async {
+    var a=await model.getNoOfDaysInEvent(events.eventId ,orgToken);
+    noOfDays=a["segments"].length;
+    for(int i=0;i<a["segments"].length; i++){
+      noOfDaysList.add(a["segments"][i]["day"].toString());
+    }
+  }
+
+  void _initializePage(MainModel model) async {
+    await _getOrgToken(model);
+    await _getNoOfDays(model);
+    return;
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -171,24 +189,43 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
                             des = val;
                           },
                         ))),
-                Container(
-                    padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10),
-                    child: new Theme(
-                        data: new ThemeData(
-                          primaryColor: Theme.of(context).accentColor,
+                        ListTile(
+                          title: const Text('Day'),
+                          trailing: new DropdownButton<String>(
+                              hint: Text('Choose'),
+                              onChanged: (String changedValue) {
+                                newValue = changedValue;
+                                setState(() {
+                                  // newValue;
+                                  day = newValue;
+                                });
+                              },
+                              value: day,
+                              items: noOfDaysList.map((String value) {
+                                return new DropdownMenuItem<String>(
+                                  value: value,
+                                  child: new Text(value),
+                                );
+                              }).toList()),
                         ),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'eg: 1',
-                            labelText: 'Day',
-                          ),
-                          keyboardType: TextInputType.phone,
-                          validator: Number,
-                          onSaved: (String val) {
-                            day = val;
-                          },
-                        ))),
+                // Container(
+                //     padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10),
+                //     child: new Theme(
+                //         data: new ThemeData(
+                //           primaryColor: Theme.of(context).accentColor,
+                //         ),
+                //         child: TextFormField(
+                //           decoration: const InputDecoration(
+                //             border: OutlineInputBorder(),
+                //             hintText: 'eg: 1',
+                //             labelText: 'Day',
+                //           ),
+                //           keyboardType: TextInputType.phone,
+                //           validator: Number,
+                //           onSaved: (String val) {
+                //             day = val;
+                //           },
+                //         ))),
                 Container(
                     padding: EdgeInsets.all(16),
                     child: new RaisedButton(
@@ -253,6 +290,10 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
       // print(body);
 
       Future fetchPosts(http.Client client) async {
+        if(day=='Choose')
+         {
+           day='1';
+         }
         if(orgToken!='')
          {
            var a=model.createCoupon(events.eventId, name, des, day, orgToken);

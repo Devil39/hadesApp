@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hades_app/screens/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
+import 'package:hades_app/createOrganisationPage.dart';
+import 'package:hades_app/screens/login.dart';
 import '../models/global.dart';
 import '../util.dart';
 import 'package:toast/toast.dart';
@@ -14,8 +17,9 @@ import '../models/organization.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
 class JoinOrganization extends StatefulWidget {
+  bool skip;
   String token;
-  JoinOrganization(this.token);
+  JoinOrganization(this.token, this.skip);
 
   @override
   State<StatefulWidget> createState() {
@@ -63,7 +67,7 @@ class JoinOrganizationState extends State<JoinOrganization> {
                         cursorColor: Colors.blue,
                         controller: editingController,
                         decoration: InputDecoration(
-                          //                                    icon: Container( margin: EdgeInsets.all(5), child: Icon(Icons.search, color: Colors.black,),),
+                          //icon: Container( margin: EdgeInsets.all(5), child: Icon(Icons.search, color: Colors.black,),),
                           hintText: "Search Organization",
                           suffixIcon: GestureDetector(
                               onTap: () {
@@ -94,14 +98,80 @@ class JoinOrganizationState extends State<JoinOrganization> {
                       ),
                     ),
                     requests == null
-                        ? Container()
-                        : Container(
-                            height: 300,
+                        ? Container(
+                            height: MediaQuery.of(context).size.height*0.8,
+                            child: Center(
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  FlatButton(
+                                    onPressed: (){
+                                      Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => CreateOrganisationScreen()));
+                                    },
+                                    child: Text(
+                                      "+    Create Organization",
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                    color: Colors.blue,
+                                  ),
+                                  widget.skip
+                                  ?FlatButton(
+                                    onPressed: (){
+                                      model.resetUserInfo();
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  LoginScreen()));
+                                    },
+                                    child: Text(
+                                      "               Logout              ",
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                    color: Colors.blue,
+                                  )
+                                  :
+                                  !widget.skip
+                                  ?FlatButton(
+                                    onPressed: (){
+                                      Navigator.pushReplacement(context,
+                                        MaterialPageRoute(builder: (context) => HomePage()));
+                                    },
+                                    child: Text(
+                                      "<     Go to home page   ",
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                    color: Colors.blue,
+                                  )
+                                  :
+                                  Container(),
+                                ],
+                              ), 
+                            ),
+                          ),
+                        )
+                        :
+                        Container(
+                            // height: 300,
+                            height: MediaQuery.of(context).size.height*0.8,
+                            decoration: BoxDecoration(
+                              // border: Border.all(
+                              //   // color: Colors.red
+                              // )
+                            ),
                             child: Container(
                                 child: ListView.builder(
                                     itemCount: requests.requested.length,
                                     itemBuilder: (context, index) {
-                                      print(requests.requested[index].fullName);
+                                      // print(requests.requested[index].fullName);
                                       return Container(
                                           decoration: continerDecor,
                                           padding: containerPad,
@@ -200,91 +270,7 @@ class JoinOrganizationState extends State<JoinOrganization> {
                                                                 MainAxisAlignment
                                                                     .end,
                                                             children: <Widget>[
-                                                              //                                                   GestureDetector(
-                                                              //                                                       onTap: () {
-                                                              ////                                                         _checkStatusToServer(
-                                                              ////                                                             true.toString(),
-                                                              ////                                                             request
-                                                              ////                                                                 .requested[index]
-                                                              ////                                                                 .id,index);
-                                                              //                                                       },
-                                                              //                                                       child: Container(
-                                                              //                                                         width: 100,
-                                                              //                                                         margin: EdgeInsets.only(
-                                                              //                                                             left: 16),
-                                                              //                                                         padding: EdgeInsets
-                                                              //                                                             .only(top: 3,
-                                                              //                                                             bottom: 3,
-                                                              //                                                             left: 10,
-                                                              //                                                             right: 10),
-                                                              //                                                         decoration: new BoxDecoration(
-                                                              //                                                             border: Border.all(
-                                                              //                                                               width: 1.0,
-                                                              //                                                               color: Colors
-                                                              //                                                                   .green,),
-                                                              //                                                             borderRadius: new BorderRadius
-                                                              //                                                                 .all(
-                                                              //                                                                 Radius.circular(
-                                                              //                                                                     10.0)),
-                                                              //                                                             color: Colors
-                                                              //                                                                 .green),
-                                                              //                                                         child: Row(
-                                                              //                                                           mainAxisAlignment: MainAxisAlignment
-                                                              //                                                               .center,
-                                                              //                                                           children: <Widget>[
-                                                              //                                                             Container(
-                                                              //                                                                 padding: EdgeInsets
-                                                              //                                                                     .all(
-                                                              //                                                                     3),
-                                                              //                                                                 child: Text(
-                                                              //                                                                   'Accept',
-                                                              //                                                                   )
-                                                              //                                                             )
-                                                              //                                                           ],
-                                                              //                                                         ),
-                                                              //                                                       )),
-                                                              //                                                       GestureDetector(
-                                                              //                                                       onTap: () {
-                                                              ////                                                         _checkStatusToServer(
-                                                              ////                                                             false.toString(),
-                                                              ////                                                             request
-                                                              ////                                                                 .requested[index]
-                                                              ////                                                                 .id,index);
-                                                              //                                                       },
-                                                              //                                                       child: Container(
-                                                              //                                                         width: 100,
-                                                              //                                                         margin: EdgeInsets.only(
-                                                              //                                                             left: 16),
-                                                              //                                                         padding: EdgeInsets
-                                                              //                                                             .only(top: 3,
-                                                              //                                                             bottom: 3,
-                                                              //                                                             left: 10,
-                                                              //                                                             right: 10),
-                                                              //                                                         decoration: new BoxDecoration(
-                                                              //                                                             border: Border.all(
-                                                              //                                                               width: 1.0,
-                                                              //                                                               color: Colors
-                                                              //                                                                   .red,),
-                                                              //                                                             borderRadius: new BorderRadius
-                                                              //                                                                 .all(
-                                                              //                                                                 Radius.circular(
-                                                              //                                                                     10.0)),
-                                                              //                                                             color: Colors.white),
-                                                              //                                                         child: Row(
-                                                              //                                                           mainAxisAlignment: MainAxisAlignment
-                                                              //                                                               .center,
-                                                              //                                                           children: <Widget>[
-                                                              //                                                             Container(
-                                                              //                                                                 padding: EdgeInsets
-                                                              //                                                                     .all(
-                                                              //                                                                     3),
-                                                              //                                                                 child: Text(
-                                                              //                                                                   'Reject',
-                                                              //                                                                   )
-                                                              //                                                             )
-                                                              //                                                           ],
-                                                              //                                                         ),
-                                                              //                                                       )),
+                                                              /////////////(1)                                                              
                                                             ])
                                                       ])),
                                               GestureDetector(
@@ -294,11 +280,11 @@ class JoinOrganizationState extends State<JoinOrganization> {
                                                     sendRequest(requests
                                                         .requested[index]
                                                         .fullName, model);
-                                                    //                                                         _checkStatusToServer(
-                                                    //                                                             false.toString(),
-                                                    //                                                             request
-                                                    //                                                                 .requested[index]
-                                                    //                                                                 .id,index);
+                                                    //_checkStatusToServer(
+                                                    //false.toString(),
+                                                    //request
+                                                    //.requested[index]
+                                                    //.id,index);
                                                   },
                                                   child: Container(
                                                     width: 100,
@@ -335,7 +321,8 @@ class JoinOrganizationState extends State<JoinOrganization> {
                                                   )),
                                             ])
                                           ]));
-                                    })))
+                                    }))
+                                ),
                   ]))));
           },
           // child: ,
@@ -343,6 +330,15 @@ class JoinOrganizationState extends State<JoinOrganization> {
   }
 
   _SearchOption(String res, MainModel model) {
+    print(res);
+    if(res==null || res=='')
+     {
+       setState(() {
+         requests=null;
+       });
+       print("Returned with null");
+       return;
+     }
     Future fetchPosts(http.Client client) async {
       // var response = await http.get(URL_SEARCHORG + "$res");
       // print(response.body);
@@ -370,7 +366,7 @@ class JoinOrganizationState extends State<JoinOrganization> {
         var data=response;
         if (this.mounted) {
           setState(() {
-            print("Setting State!");
+            // print("Setting State!");
             requests = Requests.fromJson(data);
             // print(requests.requested[0].fullName);
           });
@@ -487,3 +483,91 @@ class JoinOrganizationState extends State<JoinOrganization> {
         });
   }
 }
+/*
+(1)
+//GestureDetector(
+//                                                       onTap: () {
+////                                                         _checkStatusToServer(
+////                                                             true.toString(),
+////                                                             request
+////                                                                 .requested[index]
+////                                                                 .id,index);
+//                                                       },
+//                                                       child: Container(
+//                                                         width: 100,
+//                                                         margin: EdgeInsets.only(
+//                                                             left: 16),
+//                                                         padding: EdgeInsets
+//                                                             .only(top: 3,
+//                                                             bottom: 3,
+//                                                             left: 10,
+//                                                             right: 10),
+//                                                         decoration: new BoxDecoration(
+//                                                             border: Border.all(
+//                                                               width: 1.0,
+//                                                               color: Colors
+//                                                                   .green,),
+//                                                             borderRadius: new BorderRadius
+//                                                                 .all(
+//                                                                 Radius.circular(
+//                                                                     10.0)),
+//                                                             color: Colors
+//                                                                 .green),
+//                                                         child: Row(
+//                                                           mainAxisAlignment: MainAxisAlignment
+//                                                               .center,
+//                                                           children: <Widget>[
+//                                                             Container(
+//                                                                 padding: EdgeInsets
+//                                                                     .all(
+//                                                                     3),
+//                                                                 child: Text(
+//                                                                   'Accept',
+//                                                                   )
+//                                                             )
+//                                                           ],
+//                                                         ),
+//                                                       )),
+//                                                       GestureDetector(
+//                                                       onTap: () {
+////                                                         _checkStatusToServer(
+////                                                             false.toString(),
+////                                                             request
+////                                                                 .requested[index]
+////                                                                 .id,index);
+//                                                       },
+//                                                       child: Container(
+//                                                         width: 100,
+//                                                         margin: EdgeInsets.only(
+//                                                             left: 16),
+//                                                         padding: EdgeInsets
+//                                                             .only(top: 3,
+//                                                             bottom: 3,
+//                                                             left: 10,
+//                                                             right: 10),
+//                                                         decoration: new BoxDecoration(
+//                                                             border: Border.all(
+//                                                               width: 1.0,
+//                                                               color: Colors
+//                                                                   .red,),
+//                                                             borderRadius: new BorderRadius
+//                                                                 .all(
+//                                                                 Radius.circular(
+//                                                                     10.0)),
+//                                                             color: Colors.white),
+//                                                         child: Row(
+//                                                           mainAxisAlignment: MainAxisAlignment
+//                                                               .center,
+//                                                           children: <Widget>[
+//                                                             Container(
+//                                                                 padding: EdgeInsets
+//                                                                     .all(
+//                                                                     3),
+//                                                                 child: Text(
+//                                                                   'Reject',
+//                                                                   )
+//                                                             )
+//                                                           ],
+//                                                         ),
+//                                                       )),
+*/

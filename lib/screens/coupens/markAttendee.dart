@@ -215,14 +215,24 @@ class _MarkState extends State<MarkScreen> {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
           this.barcode = 'The user did not grant the camera permission!';
+          index=2;
         });
       } else {
         setState(() => this.barcode = 'Unknown error: $e');
+        setState(() {
+            index=2;
+          });
       }
     } on FormatException{
       setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+      setState(() {
+            index=2;
+          });
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
+      setState(() {
+            index=2;
+          });
     }
     // try {
     //   String qrResult = await QRCodeReader().scan();
@@ -277,11 +287,17 @@ class _MarkState extends State<MarkScreen> {
         print(response);
         if(response["code"]==200)
         {
+          setState(() {
+            index=1;
+          });
           _processData(response['message']);
           Toast.show("Attendance Marked!".toString(), context,
                 duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         }
         else{
+          setState(() {
+            index=2;
+          });
           Toast.show("Try again", context,
                 duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         }

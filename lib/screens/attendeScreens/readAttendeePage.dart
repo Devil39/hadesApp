@@ -77,8 +77,8 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
   }
 
   void _initializePage(MainModel model) async {
-    _getOrgToken(model);
-    _getNoOfDays(model);
+    await _getOrgToken(model);
+    await _getNoOfDays(model);
     return;
   }
 
@@ -271,8 +271,8 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                     );
                   } else {
                     if (snapshot.data != "No Data to be Fetched") {
-                      print("<__>");
-                      print(snapshot.data);
+                      // print("<__>");
+                      // print(snapshot.data);
                       for(int i=0;i<snapshot.data.length;i++)
                        {
                          print(snapshot.data[i].name);
@@ -403,32 +403,33 @@ class _ReadAttendeePage extends State<ReadAttendeePage> {
                       return Center(
                         child: Container(
                           //Text(snapshot.data)
-                          child: Column(
-                            children: <Widget>[
-                              // ListTile(
-                              //   title: const Text('Day'),
-                              //   trailing: new DropdownButton<String>(
-                              //       hint: Text('Choose'),
-                              //       onChanged: (String changedValue) {
-                              //         newValue = changedValue;
-                              //         setState(() {
-                              //           // newValue;
-                              //           day = newValue;
-                              //         });
-                              //       },
-                              //       value: day,
-                              //       items: noOfDaysList.map((String value) {
-                              //         return new DropdownMenuItem<String>(
-                              //           value: value,
-                              //           child: new Text(value),
-                              //         );
-                              //       }).toList()),
-                              // ),
-                              Center(
+                          child: Center(
                                 child: Text(snapshot.data),
                               ),
-                            ],
-                          ),
+                          // child: Column(
+                          //   children: <Widget>[
+                          //     // ListTile(
+                          //     //   title: const Text('Day'),
+                          //     //   trailing: new DropdownButton<String>(
+                          //     //       hint: Text('Choose'),
+                          //     //       onChanged: (String changedValue) {
+                          //     //         newValue = changedValue;
+                          //     //         setState(() {
+                          //     //           // newValue;
+                          //     //           day = newValue;
+                          //     //         });
+                          //     //       },
+                          //     //       value: day,
+                          //     //       items: noOfDaysList.map((String value) {
+                          //     //         return new DropdownMenuItem<String>(
+                          //     //           value: value,
+                          //     //           child: new Text(value),
+                          //     //         );
+                          //     //       }).toList()),
+                          //     // ),
+                              
+                          //   ],
+                          // ),
                         ),
                       );
                     }

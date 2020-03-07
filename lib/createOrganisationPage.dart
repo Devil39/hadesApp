@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hades_app/screens/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
@@ -306,44 +307,44 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                             child: Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Container(
-                                    padding: EdgeInsets.only(left: 16),
-                                    child: Text(
-                                      "Upload Logo",
-                                      style: loginformText,
-                                    )),
-                                GestureDetector(
-                                    behavior: HitTestBehavior.translucent,
-                                    onTap: () {
-                                      imageSelectorGallery();
-                                    },
-                                    child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        margin:
-                                            EdgeInsets.only(left: 16, top: 2),
-                                        // padding: EdgeInsets.only(bottom: 4,right: 2),
-                                        decoration: BoxDecoration(
-                                          color: profilebool
-                                              ? Colors.green
-                                              : Colors.blue,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                          boxShadow: <BoxShadow>[
-                                            BoxShadow(
-                                              color: Colors.grey[400],
-                                              offset: Offset(0.5, 0.5),
-                                              blurRadius: 10.0,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Container(
-                                          //  margin: EdgeInsets.only(bottom: ,right: 2),
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                          ),
-                                        ))),
+                                // Container(
+                                //     padding: EdgeInsets.only(left: 16),
+                                //     child: Text(
+                                //       "Upload Logo",
+                                //       style: loginformText,
+                                //     )),
+                                // GestureDetector(
+                                //     behavior: HitTestBehavior.translucent,
+                                //     onTap: () {
+                                //       imageSelectorGallery();
+                                //     },
+                                //     child: Container(
+                                //         height: 30,
+                                //         width: 30,
+                                //         margin:
+                                //             EdgeInsets.only(left: 16, top: 2),
+                                //         // padding: EdgeInsets.only(bottom: 4,right: 2),
+                                //         decoration: BoxDecoration(
+                                //           color: profilebool
+                                //               ? Colors.green
+                                //               : Colors.blue,
+                                //           borderRadius: BorderRadius.all(
+                                //               Radius.circular(5)),
+                                //           boxShadow: <BoxShadow>[
+                                //             BoxShadow(
+                                //               color: Colors.grey[400],
+                                //               offset: Offset(0.5, 0.5),
+                                //               blurRadius: 10.0,
+                                //             ),
+                                //           ],
+                                //         ),
+                                //         child: Container(
+                                //           //  margin: EdgeInsets.only(bottom: ,right: 2),
+                                //           child: Icon(
+                                //             Icons.add,
+                                //             color: Colors.white,
+                                //           ),
+                                //         ))),
                               ],
                             ),
                           ),
@@ -501,7 +502,9 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
           // if (data["message"].compareTo("Created Organization") == 0) {
           // if (data["message"].compareTo("Successfully retrieved user organizations") == 0) {
           if (data["message"].compareTo("Organization created successfully") == 0) {
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => HomePage()));
             Toast.show("Oragnization Created", context,
                 duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
             setState(() {

@@ -101,8 +101,8 @@ mixin EventModel on Model{
       var body=json.encode({
         "event_id": eventId
       });
-      // print(body);
-      // print(orgToken);
+      print(body);
+      print(orgToken);
       var response = await http.post(
         url_getNoOfDaysInEvent,
         headers: {"Authorization": "$orgToken"},

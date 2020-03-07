@@ -298,7 +298,7 @@ class _ReadCouponPage extends State<ReadCouponPage> {
 
   void _initializePage(MainModel model) async {
     await _getOrgToken(model);
-    await _getNoOfDays(model);    
+    await _getNoOfDays(model);
     await getAllCoupons();
     return;
   }
@@ -397,25 +397,25 @@ class _ReadCouponPage extends State<ReadCouponPage> {
               Flexible(
                   child: Column(
                     children: <Widget>[
-                      ListTile(
-                        title: const Text('Day'),
-                        trailing: new DropdownButton<String>(
-                            hint: Text('Choose'),
-                            onChanged: (String changedValue) {
-                              newValue = changedValue;
-                              setState(() {
-                                // newValue;
-                                day = newValue;
-                              });
-                            },
-                            value: day,
-                            items: noOfDaysList.map((String value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(value),
-                              );
-                            }).toList()),
-                      ),
+                      // ListTile(
+                      //   title: const Text('Day'),
+                      //   trailing: new DropdownButton<String>(
+                      //       hint: Text('Choose'),
+                      //       onChanged: (String changedValue) {
+                      //         newValue = changedValue;
+                      //         setState(() {
+                      //           // newValue;
+                      //           day = newValue;
+                      //         });
+                      //       },
+                      //       value: day,
+                      //       items: noOfDaysList.map((String value) {
+                      //         return new DropdownMenuItem<String>(
+                      //           value: value,
+                      //           child: new Text(value),
+                      //         );
+                      //       }).toList()),
+                      // ),
                       Expanded(
                         child: ListView.builder(
                           itemCount: _coupons.length,

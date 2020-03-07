@@ -192,14 +192,24 @@ class _ScanState extends State<ScanScreen> {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
           this.barcode = 'The user did not grant the camera permission!';
+          index=2;
         });
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        setState((){
+          this.barcode = 'Unknown error: $e';
+          index=2;
+        });
       }
     } on FormatException{
       setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+      setState(() {
+        index=2;
+      });
     } catch (e) {
       setState(() => this.barcode = 'Unknown error: $e');
+      setState(() {
+        index=2;
+      });
     }    
     // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>QrCodeReader()));
     // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>QRViewExample()));
@@ -262,13 +272,19 @@ class _ScanState extends State<ScanScreen> {
         });
         print(response);
         if (response["code"] == 200) {
+          setState(() {
+            index=1;
+          });
           Toast.show("Coupon Redeemed!".toString(), context,
               duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         } else {
+          setState(() {
+            index=2;
+          });
           Toast.show("Try Again!".toString(), context,
               duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         }
-        Navigator.pop(context);
+        // Navigator.pop(context);
       }
       // var response = await http.post(URL_REDEEM, body: json.encode(body));
 
@@ -322,21 +338,72 @@ class _ScanState extends State<ScanScreen> {
 //    widget.key?.currentState?.reset();
   }
 
-  _deleteFromServer(MainModel model) async {
-    var a = model.deleteCoupon(events.eventId, coupon.couponId, orgToken);
-    var response;
-    await a.then((resp) {
-      response = resp;
-    });
-    print(response);
-    if (response["code"] == 200) {
-      Toast.show("Coupon Created", context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-      Navigator.pop(context);
-    } else {
-      Toast.show("Try Again", context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+  bool userConsent=false;
+
+  Future<String> _neverSatisfied() async {
+    return showDialog<String>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure you want to delete the coupon?'),
+            // content: SingleChildScrollView(
+            //   child: ListBody(
+            //     children: <Widget>[
+            //       // Text('You will never be satisfied.'),
+            //       // Text('You\’re like me. I’m never satisfied.'),
+            //     ],
+            //   ),
+            // ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    userConsent=true;
+                  });
+                  return "Yes";
+                },
+              ),
+              FlatButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    userConsent=false;
+                  });
+                  return "No";
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
+
+  _deleteFromServer(MainModel model) async {
+    // print("I will not delete!");
+    var a=await _neverSatisfied();
+    if(userConsent)
+     {
+        var a = model.deleteCoupon(events.eventId, coupon.couponId, orgToken);
+        var response;
+        await a.then((resp) {
+          response = resp;
+        });
+        print(response);
+        if (response["code"] == 200) {
+          Toast.show("Coupon Created", context,
+              duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          Navigator.pop(context);
+        } else {
+          Toast.show("Try Again", context,
+              duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        }
+     }
+
+    /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 //     String eve=events.name.toString();
 //     String name=coupon.name.toString();
 //     String des=coupon.description.toString();

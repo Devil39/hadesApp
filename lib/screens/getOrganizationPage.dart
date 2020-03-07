@@ -87,6 +87,9 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
           if (data["organizations"] == null || data["organizations"].length==0) {
           // if (data["orgs"] == null || data["orgs"].length==0) {
             print("Returning yo!");
+            Navigator.pushReplacement(
+               context, MaterialPageRoute(builder: (BuildContext context) => JoinOrganization(token, widget.skip))
+            );
             return "yo";
           } else {
             // print(data["organizations"]);
@@ -118,6 +121,9 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
             // print(widget.skip);
             if(!widget.skip)
              {
+               Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (BuildContext context) => JoinOrganization(token, widget.skip))
+                );
                return "yo";
              }
             toHomePage();
@@ -138,7 +144,7 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
 
   toJoin() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => JoinOrganization(token)));
+        MaterialPageRoute(builder: (context) => JoinOrganization(token, widget.skip)));
   }
 
   @override
