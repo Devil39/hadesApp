@@ -225,7 +225,15 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                                         // hintText: 'eg@gmail.com',
                                         labelText: 'Location'),
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: validateName,
+                                    validator: (val){
+                                      if(val!=null)
+                                       {
+                                         return null;
+                                       }
+                                      else{
+                                        return "This field can't be empty";
+                                      }
+                                    },
                                     onSaved: (String val) {
                                       orgLocation = val;
                                       print(logemail);
@@ -253,7 +261,15 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                                         // hintText: 'eg@gmail.com',
                                         labelText: 'Description'),
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: validateName,
+                                    validator: (val){
+                                      if(val!=null)
+                                       {
+                                         return null;
+                                       }
+                                      else{
+                                        return "This field can't be empty";
+                                      }
+                                    },
                                     onSaved: (String val) {
                                       orgDes = val;
                                     }))),
@@ -281,6 +297,7 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                                         // hintText: 'eg@gmail.com',
                                         labelText: 'Website'),
                                     keyboardType: TextInputType.emailAddress,
+                                    validator: validateEmail,
                                     onSaved: (String val) {
                                       orgWeb = val;
                                     }))),
@@ -429,6 +446,19 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
     setState(() {
       profilebool = true;
     });
+  }
+
+  String validateEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Email is Required";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid Email";
+    } else {
+      return null;
+    }
   }
 
   String validateName(String value) {

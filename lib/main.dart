@@ -12,8 +12,12 @@
 >Change No of days route
 >Notification Screen, accept-delete container
 >Download pdf for json
+>Change create/join organization page
+>Create Event: Budget and days
+>Scroll in sidebar of home page
+>White color conversion in that circle avatar
+>Popup in Edit participant screen
 ===========================================================================
-Change create/join organization page
 Edit option in Read participant view
 A screen for showing all users of org
 ***************************************************************************
