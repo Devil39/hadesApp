@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:dio/dio.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
@@ -118,6 +117,7 @@ class _ExcelParticipantsPage extends State<ExcelParticipantsList> {
     for(int i=0;i<a["segments"].length; i++){
       noOfDaysList.add(a["segments"][i]["day"].toString());
     }
+    setState(() {});
   }
 
   void _getOrgToken(MainModel model) async {
@@ -199,7 +199,16 @@ class _ExcelParticipantsPage extends State<ExcelParticipantsList> {
                 )
               ],
             ),
-            body: Container(
+            body: 
+            noOfDaysList.length==1
+            ?
+            Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+            :
+            Container(
                 child: ListView(
                     shrinkWrap: true,
                     padding: EdgeInsets.all(15.0),

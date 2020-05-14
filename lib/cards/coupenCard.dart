@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:hades_app/models/readApi1.dart';
-import '../models/readApi.dart';
-import '../screens/eventPage.dart';
 import '../models/read_coupon.dart';
 import '../screens/coupens/qrScanner.dart';
-import '../screens/attendeScreens/editAttendeePage.dart';
 
 class CouponCard extends StatefulWidget {
   String name;

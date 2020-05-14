@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:hades_app/screens/intermediateOrgLogin.dart';
+//import 'package:intl/intl.dart';
+//import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
@@ -29,13 +30,13 @@ class CreateEventPage extends StatefulWidget{
     _CreateEventPage({this.orgName, this.orgId});
     final formats = {
       //InputType.both: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
-      InputType.date: DateFormat('yyyy-MM-dd'),
-      InputType.time: DateFormat("HH:mm"),
+      // InputType.date: DateFormat('yyyy-MM-dd'),
+      // InputType.time: DateFormat("HH:mm"),
     };
 
     // Changeable in demo
-    InputType inputType1 = InputType.date;
-    InputType inputType2 = InputType.time;
+    // InputType inputType1 = InputType.date;
+    // InputType inputType2 = InputType.time;
 
     final myController = TextEditingController();
     final myController2 = TextEditingController();
@@ -890,6 +891,7 @@ class CreateEventPage extends StatefulWidget{
       // Process your data and upload to server
       _key.currentState?.reset();
       Navigator.of(context).pop();
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>IntermediateOrgLogin(orgId: widget.orgId)));
       //widget.key?.currentState?.reset();
     }
 

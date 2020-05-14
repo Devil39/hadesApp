@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hades_app/screens/homePage.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
+import 'package:hades_app/screens/getOrganizationPage.dart';
 import './util.dart' as prefix0;
 import './util.dart';
 import './models/global.dart';
@@ -419,17 +420,17 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
     ]);
   }
 
-  imageSelectorGallery() async {
-    galleryFile = await ImagePicker.pickImage(
-      source: ImageSource.gallery,
+  // imageSelectorGallery() async {
+  //   galleryFile = await ImagePicker.pickImage(
+  //     source: ImageSource.gallery,
 
-      // maxHeight: 50.0,
-      // maxWidth: 50.0,
-    );
-    setState(() {
-      profilebool = true;
-    });
-  }
+  //     // maxHeight: 50.0,
+  //     // maxWidth: 50.0,
+  //   );
+  //   setState(() {
+  //     profilebool = true;
+  //   });
+  // }
 
   String validateName(String value) {
     String patttern = r'(^[a-zA-Z ]*$)';
@@ -479,11 +480,11 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
 
       Future fetchPosts(http.Client client, MainModel model) async {
         print("yjhtgfdsyutrgds");
-        var response1 = await http.post(
-          URL_CREATEORGANIZATION,
-          headers: {"Authorization": "$token"},
-          body: json.encode(body),
-        );
+       // var response1 = await http.post(
+       //   URL_CREATEORGANIZATION,
+       //   headers: {"Authorization": "$token"},
+       //   body: json.encode(body),
+       // );
 
         var a=model.createOrg(name: orgName, location: orgLocation, description: orgDes, website: orgWeb, tag: "", token: token);
         
@@ -504,7 +505,7 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
           if (data["message"].compareTo("Organization created successfully") == 0) {
             // Navigator.of(context).pop();
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => HomePage()));
+                MaterialPageRoute(builder: (context) => GetOrganizationPage()));
             Toast.show("Oragnization Created", context,
                 duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
             setState(() {

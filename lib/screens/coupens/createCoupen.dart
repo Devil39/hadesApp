@@ -77,6 +77,7 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
     for(int i=0;i<a["segments"].length; i++){
       noOfDaysList.add(a["segments"][i]["day"].toString());
     }
+    setState(() {});
   }
 
   void _initializePage(MainModel model) async {
@@ -110,7 +111,16 @@ class _CreateCoupenPage extends State<CreateCoupenPage> {
             centerTitle: true,
             elevation: 0.0,
           ),
-          body: new Form(
+          body: 
+          noOfDaysList.length==1
+          ?
+          Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+          :
+          new Form(
             key: _key,
             autovalidate: _validate,
             child: FormUI(model),

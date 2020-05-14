@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:query_params/query_params.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../models/global.dart';
 import 'package:flutter/services.dart';

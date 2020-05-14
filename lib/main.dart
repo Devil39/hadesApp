@@ -12,8 +12,8 @@
 >Change No of days route
 >Notification Screen, accept-delete container
 >Download pdf for json
+>Change create/join organization page
 ===========================================================================
-Change create/join organization page
 Edit option in Read participant view
 A screen for showing all users of org
 ***************************************************************************
@@ -23,6 +23,37 @@ First letter capital in participant create
 Checkbox alignment in export
 Export in download should show notification above
 */
+
+/*
+Features:
+OnBoarding Screens
+Splash Screen
+Login Screen
+SignUp Screen
+Search and join org. Screen
+Create org. Screen
+Slack type change org. sidebar on homepage
+Home page containing all events list, current org. name other visual or details as you think imp.
+Create event Screen
+Create Participant Screen
+Edit participant details and also delete it: on screen for this
+Accept/reject join request to org.: one screen for this
+Export participant list:
+ 1) Json Format
+ 2) CSV format
+ Filters availabe:
+ 1) Filter based on gender
+ 2) Filter based on day
+ 3) Filter based on participants nature, eg. in current app they are: present/absent/all participants.
+View for Json format seperately
+Create coupon screen
+Redeem coupon screen(QR scan screen for this, alongwith day picker, also if QR fails an option to manually enter details(refer photos sent by me))
+Attendee attendance, same parameters like redeem coupon
+Mailing screens
+  1)Mailing to all
+  2)Mailing to specific set of persons
+*/
+
 
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';

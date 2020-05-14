@@ -93,6 +93,7 @@ class _JsonParticipantsPage extends State<JsonParticipantsList> {
     for (String gender in _gender) {
       items.add(new DropdownMenuItem(value: gender, child: new Text(gender)));
     }
+    setState(() {});
     return items;
   }
 
@@ -105,12 +106,13 @@ class _JsonParticipantsPage extends State<JsonParticipantsList> {
     //   });
     super.initState();
     MainModel model = ScopedModel.of(context);
-    _dropDownMenuItems = getDropDownMenuItems();
-    _selectedGender = _dropDownMenuItems[0].value;
     _initializePage(model);
   }
 
   void _initializePage(MainModel model) async {
+    _dropDownMenuItems = getDropDownMenuItems();
+    setState((){});
+    _selectedGender = _dropDownMenuItems[0].value;
     await _getOrgToken(model);
     await _getNoOfDays(model);
     return;
@@ -122,6 +124,7 @@ class _JsonParticipantsPage extends State<JsonParticipantsList> {
     for (int i = 0; i < a["segments"].length; i++) {
       noOfDaysList.add(a["segments"][i]["day"].toString());
     }
+    setState(() {});
   }
 
   void _getOrgToken(MainModel model) async {
@@ -159,7 +162,16 @@ class _JsonParticipantsPage extends State<JsonParticipantsList> {
                 )
               ],
             ),
-            body: Container(
+            body: 
+            noOfDaysList.length==1
+            ?
+            Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+            :
+            Container(
                 child: ListView(
                     shrinkWrap: true,
                     padding: EdgeInsets.all(15.0),

@@ -8,7 +8,7 @@ import 'package:hades_app/models/scoped_models/mainModel.dart';
 
 class IntermediateOrgLogin extends StatefulWidget {
 
-  int orgId;
+  final int orgId;
 
   IntermediateOrgLogin({this.orgId});
 
@@ -28,7 +28,7 @@ class _IntermediateOrgLoginState extends State<IntermediateOrgLogin> {
   }
 
   void _toHomePage(){
-    Navigator.pop(context);
+    // Navigator.pop(context);
     Navigator.pushReplacementNamed(context, '/homepage');
   }
 

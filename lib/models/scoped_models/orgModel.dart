@@ -3,16 +3,18 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 
 import 'package:hades_app/models/urls.dart';
 import 'package:hades_app/models/get_Organization.dart';
+import 'package:hades_app/screens/intermediateOrgLogin.dart';
 // import 'package:hades_app/models/get_Organization.dart';
 
 mixin OrgModel on Model {
-  void setOrgList(Data data) async {
+  Future<void> setOrgList(Data data) async {
     try {
       // final orgDataBox= await Hive.openBox('orgzData');
       final orgDataBox = await Hive.openBox('orgzData');
@@ -54,11 +56,17 @@ mixin OrgModel on Model {
     return orgId;
   }
 
-  Future<String> getOrgToken() async {
+  Future<String> getOrgToken({BuildContext context}) async {
     final orgDataBox = await Hive.openBox('orgzData');
-    print(orgDataBox.get('token'));
+    //print(orgDataBox.get('token'));
     var token = orgDataBox.get('token');
-    return token;
+    if(token!=null) {
+      return token;
+    }
+    else {
+      List<dynamic> orgList=await getStoredOrgList();
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> IntermediateOrgLogin(orgId: orgList[0].orgId)));
+    }
   }
 
   Future<dynamic> getOrgDataById(int orgId) async {

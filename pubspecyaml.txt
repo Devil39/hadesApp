@@ -20,25 +20,23 @@ environment:
 
 dependencies:
   # permission: ^0.1.5
-  permission_handler: ^4.2.0
+  permission_handler: '^4.2.0'
   toast: ^0.1.5
-  path_provider: ^1.6.5
+  path_provider: ^1.5.1
   random_pk: ^0.0.3
   #qrcode_reader: ^0.4.4
   barcode_scan: ^2.0.1
   # qrscan: ^0.2.17
   # qrcode: ^1.0.4
   # qr_code_scanner: ^0.0.12
-  #datetime_picker_formfield: ^0.1.8
-  #dynamic_theme: ^1.0.1
-  #image_picker: ^0.6.5+1
+  datetime_picker_formfield: ^0.1.8
+  dynamic_theme: ^1.0.1
+  image_picker: ^0.6.3
   rx_widgets: ^3.0.0
   hive: 1.2.0
   hive_flutter: ^0.3.0+1
   scoped_model: ^1.0.1
   pdf: ^1.4.1
-  shared_preferences: ^0.5.7
-  http: ^0.12.0+4
   #downloads_path_provider: ^0.1.0
   # hive_generator: ^0.7.0
   flutter:
@@ -49,7 +47,8 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
-  #query_params: '^0.6.1'
+  query_params: '^0.6.1'
+  http: ^0.12.0+1
   hive_generator: ^0.5.1
   build_runner: ^1.7.3
   flutter_test:

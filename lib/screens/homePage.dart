@@ -5,8 +5,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:dynamic_theme/theme_switcher_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hades_app/screens/getOrganizationPage.dart';
 import 'package:http/http.dart' as http;
@@ -81,7 +79,7 @@ class _HomePageState extends State<HomePage> {
   _HomePageState({Key key, this.themeBloc});
 
   // List<Organization> orgList;
-  List<dynamic> orgList;
+  List<dynamic> orgList=[];
 
   SharedPreferencesTest s = new SharedPreferencesTest();
 
@@ -161,14 +159,16 @@ class _HomePageState extends State<HomePage> {
       org.then((res) {
         // print("<__>");
         // print(res);
-        setState(() {
-          // orgIndex=0;
-          orgList = res;
-          // print("OrgList: ");
-          // print(orgList.length);
-          orgName = res[orgIndex].name;
-          orgId = res[orgIndex].orgId;
-        });
+        if (res != null) {
+          setState(() {
+            // orgIndex=0;
+            orgList = res;
+            // print("OrgList: ");
+            // print(orgList.length);
+            orgName = res[orgIndex].name;
+            orgId = res[orgIndex].orgId;
+          });
+        }
       });
     } else {
       org.then((res) {
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
   void _getOrgToken() async {
     MainModel model = ScopedModel.of(context);
     // print("Getting Token in homePage!");
-    String _orgToken = await model.getOrgToken();
+    String _orgToken = await model.getOrgToken(context: context);
     // print("Token:");
     // print(_token);
     setState(() {
@@ -528,8 +528,9 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             // s.setLoginCheck(false);
                             // model.resetUserInfo();
-                            Navigator.of(context)
-                                .popUntil((route) => route.isFirst);
+                            //Navigator.of(context)
+                               // .popUntil((route) => route.isFirst);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
                             print("Logging in the organization: $orgId");
                             setState(() {
                               // _load=true;
@@ -743,7 +744,8 @@ class _HomePageState extends State<HomePage> {
                                                               BoxDecoration(
                                                             // color: Colors
                                                             //     .blueAccent,
-                                                            color: RandomColor.next(),
+                                                            color: RandomColor
+                                                                .next(),
                                                             shape:
                                                                 BoxShape.circle,
                                                           ),
@@ -861,7 +863,6 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                 ),
-                                // Icon(Icons.check_box_outline_blank)
                               ],
                             ),
                           ),
@@ -887,7 +888,6 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                 ),
-                                // Icon(Icons.check_box_outline_blank)
                               ],
                             ),
                           ),
