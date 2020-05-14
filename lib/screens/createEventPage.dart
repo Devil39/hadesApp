@@ -376,9 +376,10 @@ class CreateEventPage extends StatefulWidget{
                                     TextFormField(
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
-                                          hintText: '10,000',
+                                          hintText: '10000',
                                           labelText: 'Budget'
                                       ),
+                                      keyboardType: TextInputType.number,
                                       validator: checkfeild,
                                       onSaved: (String val) {
                                         budget = val;
@@ -557,6 +558,21 @@ class CreateEventPage extends StatefulWidget{
                                     ),
                                     child:
                                     TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      validator: (val){
+                                        var a=isNumeric(val);
+                                        if(val==null)
+                                         {
+                                           return 'The day field should not be empty';
+                                         }
+                                        if(a)
+                                         {
+                                           return null;
+                                         }
+                                        else{
+                                          return 'The day field should be a number';
+                                        }
+                                      },
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           //hintText: 'About the event',
@@ -844,9 +860,18 @@ class CreateEventPage extends StatefulWidget{
         );
     }
 
+    bool isNumeric(String s) {
+      if (s == null) {
+        return false;
+      }
+      return double.tryParse(s) != null;
+    }
+
     String checkfeild(String value) {
-      if (value.length == 0) {
-        return "This field is Mandatory";
+      // print("<__>");
+      // print(isNumeric('q'));
+      if (value.length == 0 && isNumeric(value)) {
+        return "This field is Mandatory and should be number";
       }
       return null;
     }

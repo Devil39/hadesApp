@@ -190,6 +190,50 @@ class _EditAttendeePage extends State<EditAttendeePage> {
     //widget.key?.currentState?.reset();
   }
 
+  bool userConsent=false;
+
+  Future<String> _neverSatisfied() async {
+    return showDialog<String>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure you want to delete the participant?'),
+            // content: SingleChildScrollView(
+            //   child: ListBody(
+            //     children: <Widget>[
+            //       // Text('You will never be satisfied.'),
+            //       // Text('You\’re like me. I’m never satisfied.'),
+            //     ],
+            //   ),
+            // ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    userConsent=true;
+                  });
+                  return "Yes";
+                },
+              ),
+              FlatButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    userConsent=false;
+                  });
+                  return "No";
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
   _sendToServer(MainModel model){
     // String eve=attendee.name.toString();
     // String evt=events.name.toString();
@@ -202,18 +246,23 @@ class _EditAttendeePage extends State<EditAttendeePage> {
   
 
      Future fetchPosts(http.Client client) async {
-//  var response=await http.post(URL_DELETEATTENDEE, body: json.encode(body));
-    var a=await model.deleteParticipant(attendee.registrationNumber, events.eventId, orgToken);
-    var response=a;
-    if(response["code"]==200)
-     {
-       Toast.show("Participant deleted successfully", context,
-              duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-     }
-    else{
-      Toast.show("Try Again", context,
-              duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-    }
+       var b=await _neverSatisfied();
+       if(userConsent)
+        {
+          //  var response=await http.post(URL_DELETEATTENDEE, body: json.encode(body));
+          var a=await model.deleteParticipant(attendee.registrationNumber, events.eventId, orgToken);
+          var response=a;
+          if(response["code"]==200)
+          {
+            Toast.show("Participant deleted successfully", context,
+                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+            _processData();
+          }
+          else{
+            Toast.show("Try Again", context,
+                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          }
+        }
   //  final data = json.decode(response.body);
       /*print(data['rs']);*/
       //  Fluttertoast.showToast(
@@ -223,7 +272,6 @@ class _EditAttendeePage extends State<EditAttendeePage> {
       //   timeInSecForIos: 1,
       //   backgroundColor: Colors.grey[700],
       //   textColor: Colors.white);
-        _processData();
   }
     
      

@@ -401,92 +401,19 @@ class _HomePageState extends State<HomePage> {
                       drawer: Drawer(
                           child: ListView(children: <Widget>[
                         Container(
-                            height:
-                                double.parse((70 * orgList.length).toString()),
-                            child: ListView.builder(
-                                itemCount: orgList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                      onTap: () async {
-                                        await setState(() {
-                                          orgIndex = index;
-                                          orgName = orgList[index].name;
-                                          orgId = orgList[index].orgId;
-                                          model.setCurrentOrgId(orgId);
-                                        });
-                                        Navigator.of(context)
-                                            .popUntil((route) => route.isFirst);
-                                        // print("Logging in the organization: $orgId");
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        IntermediateOrgLogin(
-                                                            orgId: orgId)));
-                                      },
-                                      child: Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Flexible(
-                                              child:
-                                                  // orgList[orgIndex].tag =="default_image"
-                                                  // || orgList[orgIndex].tag==null || orgList[orgIndex].tag==""
-                                                  true
-                                                      ? Container(
-                                                          margin:
-                                                              EdgeInsets.all(
-                                                                  16),
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  16),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors
-                                                                .blueAccent,
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Text(
-                                                            orgList[orgIndex]
-                                                                .name
-                                                                .substring(0, 1)
-                                                                .toUpperCase(),
-                                                            style: TextStyle(
-                                                                fontSize: 21,
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        )
-                                                      : Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 20.0,
-                                                                  left: 30.0,
-                                                                  top: 16.0),
-                                                          // child: Image.asset(orgList[orgIndex].tag,
-                                                          child: Image.asset(
-                                                              "imageAssets/orgPng.png",
-                                                              width: 90.0,
-                                                              height: 90.0,
-                                                              fit:
-                                                                  BoxFit.cover),
-                                                        ),
-                                              flex: 4,
-                                            ),
-                                            Flexible(
-                                              child: Text(
-                                                orgList[index].name,
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.black),
-                                              ),
-                                              flex: 3,
-                                            )
-                                          ],
-                                        ),
-                                      ));
-                                })),
+                          // Column(
+                            height: double.parse((90 * orgList.length).toString()),
+                            // height: 0,
+                                // MediaQuery.of(context).size.height*0.7,
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(
+                            //     color: Colors.black
+                            //   )
+                            // ),
+                            child: Container(
+                              child: Text("Something"),
+                            ),
+                                ),
 
 //                              Container(
 //                                child:
@@ -698,7 +625,7 @@ class _HomePageState extends State<HomePage> {
                           child: ListView(children: <Widget>[
                         Container(
                             height:
-                                double.parse((70 * orgList.length).toString()),
+                                double.parse((90 * orgList.length).toString()),
                             child: ListView.builder(
                                 itemCount: orgList.length,
                                 itemBuilder: (BuildContext context, int index) {
@@ -756,7 +683,9 @@ class _HomePageState extends State<HomePage> {
                                                                 .substring(0, 1)
                                                                 .toUpperCase(),
                                                             style: TextStyle(
-                                                                fontSize: 21),
+                                                                fontSize: 21,
+                                                                color: Colors.white
+                                                            ),
                                                           ),
                                                         )
                                                       : Container(
@@ -1110,3 +1039,89 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.grey[850]));
   }
 }
+
+
+/*ListView.builder(
+                                itemCount: orgList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                      onTap: () async {
+                                        await setState(() {
+                                          orgIndex = index;
+                                          orgName = orgList[index].name;
+                                          orgId = orgList[index].orgId;
+                                          model.setCurrentOrgId(orgId);
+                                        });
+                                        Navigator.of(context)
+                                            .popUntil((route) => route.isFirst);
+                                        // print("Logging in the organization: $orgId");
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        IntermediateOrgLogin(
+                                                            orgId: orgId)));
+                                      },
+                                      child: Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              child:
+                                                  // orgList[orgIndex].tag =="default_image"
+                                                  // || orgList[orgIndex].tag==null || orgList[orgIndex].tag==""
+                                                  true
+                                                      ? Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blueAccent,
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Text(
+                                                            orgList[orgIndex]
+                                                                .name
+                                                                .substring(0, 1)
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontSize: 21,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        )
+                                                      : Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20.0,
+                                                                  left: 30.0,
+                                                                  top: 16.0),
+                                                          // child: Image.asset(orgList[orgIndex].tag,
+                                                          child: Image.asset(
+                                                              "imageAssets/orgPng.png",
+                                                              width: 90.0,
+                                                              height: 90.0,
+                                                              fit:
+                                                                  BoxFit.cover),
+                                                        ),
+                                              flex: 4,
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                orgList[index].name,
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black),
+                                              ),
+                                              flex: 3,
+                                            )
+                                          ],
+                                        ),
+                                      ));
+                                }),*/
