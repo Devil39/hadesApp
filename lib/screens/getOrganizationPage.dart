@@ -1,4 +1,3 @@
-//Correct redirecting to homePage
 import 'dart:async';
 import 'dart:convert';
 
@@ -46,8 +45,6 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
 
   void _getToken(MainModel model) async {
     String _token=await model.getToken();
-    // print("Token:");
-    // print(_token);
     setState(() {
       token=_token;
     });
@@ -59,7 +56,7 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
   }
 
   Data _data;
-  Future fetchPosts(http.Client client, MainModel model) async {  
+  Future fetchPosts(http.Client client, MainModel model) async {
     if (token != '') {
 //  var response=await http.get(URL_GETORG,headers:{"Authorization": "$token"} );
       // var response =
@@ -92,33 +89,8 @@ class GetOrganizationPageState extends State<GetOrganizationPage> {
             );
             return "yo";
           } else {
-            // print(data["organizations"]);
-            //  _data = Data.fromJson(data["data"]);
-            // List<Map<String, dynamic>> map;
-            // Map<String, dynamic> map1={};
-            // var orgs=data["organizations"];
-            // // print(orgs[0]["name"]);
-            // for(var i=0;i<data["organizations"].length; i++)
-            //  {
-            //   //  map[i]["name"]=orgs[i]["name"];
-            //   //  map[i]["location"]=orgs[i]["location"];
-            //   //  map[i]["description"]=orgs[i]["description"];
-            //   //  map[i]["tag"]=orgs[i]["tag"];
-            //   //  map[i]["website"]=orgs[i]["website"];
-            //    map1["name"]=orgs[i]["name"];
-            //    map1["location"]=orgs[i]["location"];
-            //    map1["description"]=orgs[i]["description"];
-            //    map1["tag"]=orgs[i]["tag"];
-            //    map1["website"]=orgs[i]["website"];
-            //  }
             _data = Data.fromJson(data);
-            // _data = Data.fromJson(map1);
-            // print(data["organizations"]);
-            // s.setOrgList(_data.organization);
-            // s.setOrgList(data["organizations"]);
-            await model.setOrgList(_data);
-            // print("Skip:");
-            // print(widget.skip);
+            //await model.setOrgList(_data);
             if(!widget.skip)
              {
                Navigator.pushReplacement(

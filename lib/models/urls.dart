@@ -1,4 +1,8 @@
-const baseUrl="https://hades.dscvit.com/api/v2";
+//const baseUrl="https://hades.dscvit.com/api/v2";
+//const baseUrl="http://10.0.2.2:8080/api/v2";
+const baseUrl="https://mysterious-wave-16372.herokuapp.com/api/v2";
+//const baseUrl="http://fce5350eafac.ngrok.io/api/v2";
+
 
 const url_login="$baseUrl/org/login";
 const url_signup="$baseUrl/org/signup";
@@ -11,6 +15,7 @@ const url_createEvent="$baseUrl/event/save";
 const url_getOrgEvents="$baseUrl/org/events";
 const url_orgLogIn="$baseUrl/org/login-org";
 const url_createParticipant="$baseUrl/participants/create-attendee";
+const url_editParticipant="$baseUrl/participants/save-attendee";
 // const url_getAllParticipants="$baseUrl/participant/get-present";
 const url_getAllParticipants="$baseUrl/event/read";
 const url_getNoOfDaysInEvent="$baseUrl/participant/get-days";
@@ -25,3 +30,5 @@ const url_markPresent="$baseUrl/participant/mark-present";
 const url_getAllJoinReq="$baseUrl/org/requests";
 const url_acceptJoinReq="$baseUrl/org/accept";
 const url_declineJoinReq="$baseUrl/org/delete-req";
+const url_deleteEvent="$baseUrl/event/delete";
+const url_specificMail="$baseUrl/mailer/mail";

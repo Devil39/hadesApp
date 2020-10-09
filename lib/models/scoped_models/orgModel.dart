@@ -9,26 +9,15 @@ import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 
 import 'package:hades_app/models/urls.dart';
-import 'package:hades_app/models/get_Organization.dart';
 import 'package:hades_app/screens/intermediateOrgLogin.dart';
-// import 'package:hades_app/models/get_Organization.dart';
+import 'package:hades_app/models/get_Organization.dart';
 
 mixin OrgModel on Model {
   Future<void> setOrgList(Data data) async {
     try {
-      // final orgDataBox= await Hive.openBox('orgzData');
       final orgDataBox = await Hive.openBox('orgzData');
-      // print(data.runtimeType);
-      // print(data.organization[0].name);
-      await orgDataBox.put('orgList', data.organization);
-      // print("Organizations Saved!");
-      // print(a);
-      // print(data);
+      await orgDataBox.put('orgList', data);
       print("Organizations Saved!");
-      // Hive.close();
-      // print(data.organization);
-      // print(data.organization[0]);
-      // print(data.organization[0].orgId);
       orgDataBox.put('currentOrgId', data.organization[0].orgId);
     } catch (err) {
       print(err);
@@ -38,8 +27,6 @@ mixin OrgModel on Model {
   Future<dynamic> getStoredOrgList() async {
     final orgDataBox = await Hive.openBox('orgzData');
     var a = orgDataBox.get('orgList');
-    // Hive.close();
-    // print(a);
     return a;
   }
 
@@ -60,12 +47,16 @@ mixin OrgModel on Model {
     final orgDataBox = await Hive.openBox('orgzData');
     //print(orgDataBox.get('token'));
     var token = orgDataBox.get('token');
-    if(token!=null) {
+    if (token != null) {
       return token;
-    }
-    else {
-      List<dynamic> orgList=await getStoredOrgList();
-      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> IntermediateOrgLogin(orgId: orgList[0].orgId)));
+    } else {
+      //List<dynamic> orgList = await getStoredOrgList();
+      Data orgList = await getStoredOrgList();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  IntermediateOrgLogin(orgId: orgList.organization[0].orgId)));
     }
   }
 
@@ -147,7 +138,6 @@ mixin OrgModel on Model {
             throw "Server Error!";
           } else {
             message = jsonDecode(response.body)["message"];
-            // throw jsonDecode(response.body)["message"];
             throw message;
           }
         }
@@ -185,13 +175,14 @@ mixin OrgModel on Model {
     }
   }
 
-  Future<dynamic> createOrg(
-      {String name,
-      String location,
-      String description,
-      String tag = "",
-      String website,
-      String token}) async {
+  Future<dynamic> createOrg({
+    String name,
+    String location,
+    String description,
+    String tag = "",
+    String website,
+    String token,
+  }) async {
     var statuscode, message;
     // print("Here!");
     // return;
@@ -248,7 +239,6 @@ mixin OrgModel on Model {
     try {
       var response =
           await http.get(url_getAllOrg, headers: {"Authorization": "$token"});
-      // var response = await http.get(url_getOrgList, headers: {"Authorization": "$token"});
       print("Response:");
       print(response.statusCode);
       print(response.body);
@@ -261,10 +251,7 @@ mixin OrgModel on Model {
         print(orgDataBox.get('token'));
         // Hive.close();
         return jsonDecode(response.body);
-        // return response;
       } else {
-        // print(response.statusCode.runtimeType);
-        // print(response.statusCode==400);
         if (response.statusCode == 500 ||
             response.statusCode == 400 ||
             response.statusCode == 404) {
@@ -382,10 +369,7 @@ mixin OrgModel on Model {
   Future<dynamic> declineJoinReq(
       int orgId, String email, String orgToken) async {
     var statuscode, message;
-    var body = json.encode({
-      "org_id": orgId, 
-      "email": email
-    });
+    var body = json.encode({"org_id": orgId, "email": email});
     print(body);
     print(orgToken);
     try {
@@ -425,49 +409,41 @@ mixin OrgModel on Model {
     }
   }
 
-  Future<dynamic> acceptJoinReq(int orgId, String email, String orgToken) async {
+  Future<dynamic> acceptJoinReq(
+      int orgId, String email, String orgToken) async {
     var statuscode, message;
-    var body=json.encode({
-        "org_id": orgId,
-        "email": email
-      });
-      print(body);
-      print(orgToken);
-    try{
+    var body = json.encode({"org_id": orgId, "email": email});
+    print(body);
+    print(orgToken);
+    try {
       print("Sending accept join request!");
       var response = await http.post(
         url_acceptJoinReq,
         headers: {
           "Content-type": "application/json",
           "Authorization": "$orgToken"
-          },
+        },
         body: body,
       );
-      print("Response:"); 
+      print("Response:");
       print(response.statusCode);
       print(response.body);
-      statuscode=response.statusCode;
-      if(response.statusCode==200)
-       {
+      statuscode = response.statusCode;
+      if (response.statusCode == 200) {
         return jsonDecode(response.body);
-       }
-      else{
-        if(response.statusCode==500 || response.statusCode==400 || response.statusCode==404)
-         {
-           throw "Server Error!";
-         }
-        else{
-          message=jsonDecode(response.body)["message"];
+      } else {
+        if (response.statusCode == 500 ||
+            response.statusCode == 400 ||
+            response.statusCode == 404) {
+          throw "Server Error!";
+        } else {
+          message = jsonDecode(response.body)["message"];
           throw message;
         }
       }
-    }
-    catch(err){
+    } catch (err) {
       print("Error accepting join request!....$err");
-      return {
-        "code": statuscode,
-        "message": err
-      };
+      return {"code": statuscode, "message": err};
     }
   }
 }

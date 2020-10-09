@@ -185,11 +185,12 @@ class _ScanState extends State<ScanScreen> {
 
   Future _scanQR(MainModel model) async {
     try {
-      String barcode = await BarcodeScanner.scan();
+      var barcodeResult = await BarcodeScanner.scan();
+      String barcode = barcodeResult.rawContent;
       setState(() => this.barcode = barcode);
       _sendToServer(barcode, model);
     } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
         setState(() {
           this.barcode = 'The user did not grant the camera permission!';
           index=2;

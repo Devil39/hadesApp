@@ -1,16 +1,12 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 
 import 'package:hades_app/models/scoped_models/mainModel.dart';
 import '../util.dart';
-import '../models/global.dart';
 import '../userDataMangment.dart';
 import '../screens/signupPage.dart';
 import '../util.dart' as prefix0;
@@ -59,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -83,12 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       }
-                // child: ,
     );
   }
 
   bool _load = false;
-//  SharedPreferencesTest s = new SharedPreferencesTest();
 
   Widget FormUI(MainModel model) {
     Widget loadingIndicator = _load
@@ -105,7 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 gradient: RadialGradient(
                   stops: [0.1, 10],
                   colors: [
-//
                     Colors.grey[200],
 
                     Colors.grey[400],
@@ -132,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
             )))
         : new Container();
 
-    int flag;
     return Stack(children: <Widget>[
       SingleChildScrollView(
           child: Container(

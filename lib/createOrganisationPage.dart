@@ -100,23 +100,23 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget child, MainModel model){
+      builder: (BuildContext context, Widget child, MainModel model) {
         return Scaffold(
-        appBar: AppBar(
-          title: Text("Create Organization"),
-          elevation: 0,
-          centerTitle: true,
+          appBar: AppBar(
+            title: Text("Create Organization"),
+            elevation: 0,
+            centerTitle: true,
+            backgroundColor: prefix0.backgroundColor,
+          ),
           backgroundColor: prefix0.backgroundColor,
-        ),
-        backgroundColor: prefix0.backgroundColor,
-        body: new Form(
-          key: _key,
-          autovalidate: _validate,
-          child: FormUI(model),
-        ),
-      );
+          body: new Form(
+            key: _key,
+            autovalidate: _validate,
+            child: FormUI(model),
+          ),
+        );
       },
-          // child: ,
+      // child: ,
     );
   }
 
@@ -226,12 +226,10 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                                         // hintText: 'eg@gmail.com',
                                         labelText: 'Location'),
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: (val){
-                                      if(val!=null)
-                                       {
-                                         return null;
-                                       }
-                                      else{
+                                    validator: (val) {
+                                      if (val != null) {
+                                        return null;
+                                      } else {
                                         return "This field can't be empty";
                                       }
                                     },
@@ -262,12 +260,10 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
                                         // hintText: 'eg@gmail.com',
                                         labelText: 'Description'),
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: (val){
-                                      if(val!=null)
-                                       {
-                                         return null;
-                                       }
-                                      else{
+                                    validator: (val) {
+                                      if (val != null) {
+                                        return null;
+                                      } else {
                                         return "This field can't be empty";
                                       }
                                     },
@@ -510,17 +506,24 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
 
       Future fetchPosts(http.Client client, MainModel model) async {
         print("yjhtgfdsyutrgds");
-       // var response1 = await http.post(
-       //   URL_CREATEORGANIZATION,
-       //   headers: {"Authorization": "$token"},
-       //   body: json.encode(body),
-       // );
+        // var response1 = await http.post(
+        //   URL_CREATEORGANIZATION,
+        //   headers: {"Authorization": "$token"},
+        //   body: json.encode(body),
+        // );
 
-        var a=model.createOrg(name: orgName, location: orgLocation, description: orgDes, website: orgWeb, tag: "", token: token);
-        
+        var a = model.createOrg(
+          name: orgName,
+          location: orgLocation,
+          description: orgDes,
+          website: orgWeb,
+          tag: "",
+          token: token,
+        );
+
         var response;
-        await a.then((res){
-          response=res;
+        await a.then((res) {
+          response = res;
         });
         // print(response.statusCode);
         // print(a.statusCode)
@@ -529,10 +532,11 @@ class _CreateOrganisationScreenState extends State<CreateOrganisationScreen> {
         if (response["code"] == 200) {
           // final data = json.decode(response.body);
           // print(data);
-          var data=response;
+          var data = response;
           // if (data["message"].compareTo("Created Organization") == 0) {
           // if (data["message"].compareTo("Successfully retrieved user organizations") == 0) {
-          if (data["message"].compareTo("Organization created successfully") == 0) {
+          if (data["message"].compareTo("Organization created successfully") ==
+              0) {
             // Navigator.of(context).pop();
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => GetOrganizationPage()));

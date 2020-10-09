@@ -1,0 +1,18 @@
+
+
+
+
+
+
+
+
+#1. Curr event and org, indication change
+#2. Specific mailing: One email in one line
+#3. Dropdown color: change to light blue
+#4. Remove dialog box from attendance screen
+#5. Search box: border-radius(10 to 12 px)
+#6. Highlight select and add next button
+#7. Disable create event button(except for the org and event list page)
+#8. Tutorial
+#9. Remove bug of navigation while there is no event present
+10. Change Icons all over the app

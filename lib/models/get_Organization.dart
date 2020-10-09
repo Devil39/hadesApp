@@ -5,15 +5,14 @@ part 'get_Organization.g.dart';
 
 // @HiveType(0)
 @HiveType()
-class Data{
-
+class Data {
   @HiveField(0)
   List<Organization> organization;
 
   Data({this.organization});
 
   //  factory Data.fromJson(Map<String, dynamic> json){
-  factory Data.fromJson(dynamic json){
+  factory Data.fromJson(dynamic json) {
     var list = json["organizations"] as List;
     // var list = json["orgs"] as List;
     // print("List");
@@ -21,17 +20,16 @@ class Data{
     // print("<!----!>");
     // print(list);
     // print(list.runtimeType);
-    List<Organization> requestedList = list.map((i) => Organization.fromJson(i)).toList();
+    List<Organization> requestedList =
+        list.map((i) => Organization.fromJson(i)).toList();
     // print(requestedList[0].name);
-    return Data(
-     organization: requestedList
-    );
+    return Data(organization: requestedList);
   }
 }
 
 // @HiveType()
 @HiveType()
-class Organization{
+class Organization {
   @HiveField(0)
   String name;
   @HiveField(1)
@@ -45,16 +43,22 @@ class Organization{
   @HiveField(5)
   int orgId;
 
-  Organization({this.description,this.location,this.name,this.tag,this.website, this.orgId});
+  Organization({
+    this.description,
+    this.location,
+    this.name,
+    this.tag,
+    this.website,
+    this.orgId,
+  });
 
-factory Organization.fromJson(Map<String,dynamic> json){
+  factory Organization.fromJson(Map<String, dynamic> json) {
     return Organization(
-      name: json["name"],
-      location: json["location"],
-      description: json["description"],
-      tag: json["tag"],
-      website: json["website"],
-      orgId: json["org_id"]
-    );
+        name: json["name"],
+        location: json["location"],
+        description: json["description"],
+        tag: json["tag"],
+        website: json["website"],
+        orgId: json["org_id"]);
   }
 }

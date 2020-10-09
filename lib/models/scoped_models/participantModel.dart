@@ -55,6 +55,51 @@ mixin ParticipantModel on Model{
     }
   }
 
+  Future<dynamic> editParticipant(String name, String regNo, String email, String gender, String mobNo, int eventId, String orgToken) async {
+    var statuscode, message;
+    var body=json.encode({
+        "name": name,
+        "reg_no": regNo,
+        "email": email,
+        "gender": gender,
+        "event_id": eventId,
+        "phone_number": mobNo
+      });
+    try{
+      print("Sending edit participant request!");
+      var response = await http.post(
+        url_editParticipant,
+        headers: {"Authorization": "$orgToken"},
+        body: body,
+      );
+      print("Response:");
+      print(response.statusCode);
+      print(response.body);
+      statuscode=response.statusCode;
+      if(response.statusCode==200)
+       {
+        return jsonDecode(response.body);
+       }
+      else{
+        if(response.statusCode==500 || response.statusCode==400 || response.statusCode==404)
+         {
+           throw "Server Error!";
+         }
+        else{
+          message=jsonDecode(response.body)["message"];
+          throw message;
+        }
+      }
+    }
+    catch(err){
+      print("Error edit participant!....$err");
+      return {
+        "code": statuscode,
+        "message": err
+      };
+    }
+  }
+
   Future<dynamic> getAllParticipants(String day, int eventId, String orgToken) async {
     var statuscode, message;
     var body=json.encode({
@@ -72,7 +117,7 @@ mixin ParticipantModel on Model{
       );
       // print("Response:");
       // print(response.statusCode);
-      // print(response.body);
+      print(response.body);
       statuscode=response.statusCode;
       if(response.statusCode==200)
        {
