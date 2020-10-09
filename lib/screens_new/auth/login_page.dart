@@ -24,10 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool _autoValidate = false,
-      _loading = false,
-      showPassword = false,
-      _loadingCard = false;
+  bool _autoValidate = false, _loading = false, showPassword = false, _loadingCard = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +48,16 @@ class _LoginPageState extends State<LoginPage> {
             ),
           )
         : IgnorePointer(
-          ignoring: _loadingCard,
-          child: Container(
+            ignoring: _loadingCard,
+            child: Container(
               height: MediaQuery.of(context).size.height,
               child: Center(
                 child: SingleChildScrollView(
                   child: Form(
                     //autovalidate: _autoValidate,
-                    autovalidateMode: _autoValidate
-                        ? AutovalidateMode.always
-                        : AutovalidateMode.disabled,
+                    // autovalidateMode: _autoValidate
+                    //     ? AutovalidateMode.always
+                    //     : AutovalidateMode.disabled,
                     //autovalidateMode: AutovalidateMode.always,
                     child: Stack(
                       children: [
@@ -68,8 +65,11 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: MediaQuery.of(context).size.height * 0.24,
+                              height: MediaQuery.of(context).size.height * 0.15,
                               child: Image.asset('images/hades_logo.png'),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.05,
                             ),
                             TextArea(
                               title: 'Email',
@@ -88,9 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                               controller: _passwordController,
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  !showPassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
+                                  !showPassword ? Icons.visibility_off : Icons.visibility,
                                   color: BColors.black,
                                 ),
                                 onPressed: () {
@@ -155,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-        );
+          );
   }
 
   void logIn(MainModel model) async {
@@ -179,8 +177,7 @@ class _LoginPageState extends State<LoginPage> {
           builder: (context) => SuccessCard(
             onPressed: () {
               Navigator.pop(context);
-              ExtendedNavigator.rootNavigator
-                  .pushReplacementNamed(Routes.getOrganizationPage);
+              ExtendedNavigator.rootNavigator.pushReplacementNamed(Routes.getOrganizationPage);
             },
           ),
         );

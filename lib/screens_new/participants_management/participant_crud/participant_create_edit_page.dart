@@ -114,9 +114,9 @@ class _ParticipantCreateEditPageState extends State<ParticipantCreateEditPage> {
                       Container(
                         child: Form(
                           //autovalidate: _autoValidate,
-                          autovalidateMode: _autoValidate
-                              ? AutovalidateMode.always
-                              : AutovalidateMode.disabled,
+                          // autovalidateMode: _autoValidate
+                          //     ? AutovalidateMode.always
+                          //     : AutovalidateMode.disabled,
                           child: Column(
                             children: <Widget>[
                               TextArea(

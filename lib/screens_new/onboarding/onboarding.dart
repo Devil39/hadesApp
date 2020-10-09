@@ -13,7 +13,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final pageList = [
     PageModel(
       color: const Color(0xFF678FB4),
-      //color: const Color(0xffff0000),
+      // color: const Color(0xffff0000),
       heroAssetPath: 'images/onboarding-1.webp',
       //heroAssetPath: '',
       title: Text('', //Hotels

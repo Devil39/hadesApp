@@ -103,9 +103,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
             child: SingleChildScrollView(
               child: Form(
                 //autovalidate: _autoValidate,
-                autovalidateMode: _autoValidate
-                    ? AutovalidateMode.always
-                    : AutovalidateMode.disabled,
+                // autovalidateMode: _autoValidate
+                //     ? AutovalidateMode.always
+                //     : AutovalidateMode.disabled,
                 child: Stack(
                   children: [
                     Column(

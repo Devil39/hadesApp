@@ -23,15 +23,16 @@ class SubmitButton extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 12.0),
       child: ButtonTheme(
-        height: MediaQuery.of(context).size.height * 0.08,
+        height: 54,
         minWidth: minWidth == null
             //? MediaQuery.of(context).size.width * 0.33
             ? 100
             : minWidth,
         child: RaisedButton(
+          elevation: 2,
           color: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(10.0),
             side: BorderSide(
               color: onPressed != null ? borderColor : BColors.grey,
             ),

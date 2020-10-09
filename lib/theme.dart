@@ -31,6 +31,9 @@ class ThemeBloc {
           accentColor: Colors.blue,
           backgroundColor: Colors.grey[50],
          primaryColor: Colors.grey[50],
+         pageTransitionsTheme: PageTransitionsTheme(builders: {
+           TargetPlatform.android:ZoomPageTransitionsBuilder(),
+         })
         ));
   }
 }

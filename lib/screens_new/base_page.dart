@@ -250,7 +250,9 @@ class _BasePageState extends State<BasePage> {
 
   Widget _buildBottomAppBar(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 24),
       child: Stack(
+        alignment: Alignment.center,
         children: <Widget>[
           Material(
             //elevation: 9.0,
@@ -350,10 +352,10 @@ class _BasePageState extends State<BasePage> {
             ),
           ),
           Transform.translate(
-            offset: Offset(-5.0, -15.0),
+            offset: Offset(0, 0),
             child: Container(
-              margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.425),
+              // margin: EdgeInsets.only(
+              //     left: MediaQuery.of(context).size.width * 0.425),
               child: RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: currPage != 0 && currPage != 3
@@ -378,8 +380,8 @@ class _BasePageState extends State<BasePage> {
                 ),
                 shape: CircleBorder(),
                 constraints: BoxConstraints(
-                  minWidth: 72.0,
-                  minHeight: 72.0,
+                  minWidth: 64.0,
+                  minHeight: 64.0,
                 ),
               ),
             ),

@@ -52,10 +52,11 @@ class TextArea extends StatelessWidget {
             keyboardType: inputType,
             validator: validator,
             decoration: InputDecoration(
-              //border: OutlineInputBorder(
-              //  borderRadius: BorderRadius.circular(10.0),
-              //),
-              border: InputBorder.none,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+               borderRadius: BorderRadius.circular(10.0),
+              ),
+              // border: InputBorder.none,
               filled: true,
               fillColor: BColors.backgroundBlue,
               hintStyle: TextStyle(

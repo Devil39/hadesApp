@@ -54,9 +54,9 @@ class _SignUpPageState extends State<SignUpPage> {
       child: SingleChildScrollView(
         child: Form(
           //autovalidate: _autoValidate,
-          autovalidateMode: _autoValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
+          //autovalidateMode: //_autoValidate
+//              ? //AutovalidateMode.always
+//              : //AutovalidateMode.disabled,
           //autovalidateMode: AutovalidateMode.always,
           child: Stack(
             children: [

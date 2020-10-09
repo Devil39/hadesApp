@@ -123,10 +123,12 @@ class _AttendancePageState extends State<AttendancePage> {
                                   title: "Day",
                                 ),
                               ),
+                              SizedBox(
+                                height: 40,
+                              ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.87,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2,
+                                height: MediaQuery.of(context).size.height * 0.2,
                                 padding: EdgeInsets.all(10.0),
                                 decoration: BoxDecoration(
                                   color: BColors.backgroundBlue,
@@ -140,104 +142,52 @@ class _AttendancePageState extends State<AttendancePage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            width: 50.0,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.153,
-                                            child: Icon(
-                                              Icons.center_focus_weak,
-                                              color: BColors.blue,
-                                              size: 60.0,
-                                            ),
-                                          ),
-                                          //Image.asset(
-                                          //  'images/orgPng.png',
-                                          //  height: MediaQuery.of(context).size.height *
-                                          //      0.141,
-                                          //),
-                                        ],
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Attendance',
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: BColors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: Dimens.mediumHeadingTextSize,
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 1.5,
-                                                      horizontal: 36,
-                                                    ),
-                                                    child: Text(
-                                                      'Attendance',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                        color: BColors.blue,
-                                                        fontSize: Dimens
-                                                            .mediumHeadingTextSize,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: <Widget>[
-                                                SubmitButton(
-                                                  buttonText: 'Scan',
-                                                  onPressed: () {
-                                                    _scanQR(model);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.center_focus_weak,
+                                          color: BColors.blue,
+                                          size: 60.0,
+                                        ),
+                                        Spacer(),
+                                        SubmitButton(
+                                          buttonText: 'Scan',
+                                          onPressed: () {
+                                            _scanQR(model);
+                                          },
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
-                              status == QRStatus.Red ||
-                                      (status == QRStatus.Green && errMsg != "")
+                              status == QRStatus.Red || (status == QRStatus.Green && errMsg != "")
                                   ? Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.87,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 10.0),
+                                      width: MediaQuery.of(context).size.width * 0.87,
+                                      margin: const EdgeInsets.symmetric(vertical: 10.0),
                                       child: Text(
                                         errMsg,
                                         style: TextStyle(
                                           fontSize: Dimens.smallHeadingTextSize,
                                           fontWeight: FontWeight.w600,
-                                          color: status == QRStatus.Red
-                                              ? BColors.red
-                                              : BColors.green,
+                                          color:
+                                              status == QRStatus.Red ? BColors.red : BColors.green,
                                         ),
                                       ),
                                     )
@@ -353,8 +303,7 @@ class _AttendancePageState extends State<AttendancePage> {
     } else {
       setState(() {
         status = QRStatus.Red;
-        errMsg =
-            "Some error occurred, please rescan or manually enter in the given field";
+        errMsg = "Some error occurred, please rescan or manually enter in the given field";
       });
     }
     setState(() {
